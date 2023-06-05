@@ -27,6 +27,9 @@ class CustomListener(Python3Listener):
 
     # parameter to indent
     counterIndent = 0
+
+    # parameter to manage function params
+    funcparams = {}
     
     def __init__(self):
         self.nameOfDef = "main"
@@ -39,6 +42,7 @@ class CustomListener(Python3Listener):
 
         self.isLoop = ""
         self.forArg = ""
+        self.funcparams = {}
 
 
 
@@ -97,7 +101,7 @@ class CustomListener(Python3Listener):
 
 
     # Enter a parse tree produced by Python3Parser#async_funcdef.
-    def enterAsync_funcdef(self, ctx:Python3Parser.Async_funcdefContext):
+    def enterAsync_funcdef(self, ctx:Python3Parser.Async_funcdefContext):        
         pass
 
     # Exit a parse tree produced by Python3Parser#async_funcdef.
@@ -107,19 +111,29 @@ class CustomListener(Python3Listener):
 
     # Enter a parse tree produced by Python3Parser#funcdef.
     def enterFuncdef(self, ctx:Python3Parser.FuncdefContext):
+        self.counterIndent +=1
+        if (ctx.NAME() not in self.customDictionnary.keys()):
+            self.customDictionnary[ctx.NAME()]=[]
+            self.nameOfDef = ctx.NAME()
+        self.customDictionnary[self.nameOfDef].append("func ")
+        self.customDictionnary[self.nameOfDef].append(ctx.NAME())
         pass
 
     # Exit a parse tree produced by Python3Parser#funcdef.
     def exitFuncdef(self, ctx:Python3Parser.FuncdefContext):
+        self.customDictionnary[self.nameOfDef].append("}")
+        self.nameOfDef = "main"
         pass
 
 
     # Enter a parse tree produced by Python3Parser#parameters.
     def enterParameters(self, ctx:Python3Parser.ParametersContext):
+        self.customDictionnary[self.nameOfDef].append("(")
         pass
 
     # Exit a parse tree produced by Python3Parser#parameters.
     def exitParameters(self, ctx:Python3Parser.ParametersContext):
+        self.customDictionnary[self.nameOfDef].append("){\n")
         pass
 
 
@@ -185,7 +199,7 @@ class CustomListener(Python3Listener):
     def exitSimple_stmt(self, ctx:Python3Parser.Simple_stmtContext):
         if (self.isPrint):
             self.customDictionnary[self.nameOfDef].append(")")
-            self.isPrinte = False
+            self.isPrint = False
         self.customDictionnary[self.nameOfDef].append("\n")
         pass
 
@@ -968,38 +982,46 @@ class CustomListener(Python3Listener):
 
     # method that prints the dictionnary : first the imports, then the methods, then the main
     def print_dictionnary(self):
+        stringSol = ""
         print(self.customDictionnary)
 
         # simple imports
         if (len(self.customDictionnary["importsname"]) == 0):
             pass
         elif (len(self.customDictionnary["importsname"]) == 1):
-            print("import "+self.customDictionnary["importsname"][0]+"\n")
+            stringSol += "import "+self.customDictionnary["importsname"][0]+"\n"
         else :
-            print("import (\n")
+            stringSol += "import (\n"
             for i in range (0, len(self.customDictionnary["importsname"])) :
                 if (self.customDictionnary["importsname"][i] == "\n"):
-                    print("\nimport ",end='', flush=True)
+                    stringSol += "\nimport "
                 else :
-                    print(self.customDictionnary["importsname"][i],end='', flush=True)
-            print(")")
+                    stringSol += self.customDictionnary["importsname"][i]
+            stringSol+=")\n"
         
         # imports with froms : not for now
-
+        stringSol+="\n"
         
         # add the printing of the functions
+        for function in self.customDictionnary.keys():
+            if (function != "main") and (function != "importsfrom") and (function != "importsname"):
+                for el in self.customDictionnary[function]:
+                    stringSol += str(el)
+                stringSol += "\n\n"
 
         # print the main
-        print("func main(){")
+        stringSol+="func main(){\n"
         for i in range (0, len(self.customDictionnary["main"])) :
             if (i==0):
                 #self.customDictionnary["main"].append("\t")
-                print("\t")
+                stringSol+="\t"
             if (self.customDictionnary["main"][i] == "\n"):
-                print(self.customDictionnary["main"][i]+"\t", end="", flush=True)
+                stringSol += self.customDictionnary["main"][i]+"\t"
             else :
-                print(self.customDictionnary["main"][i], end="", flush=True)
-        print("\n}")
+                stringSol += self.customDictionnary["main"][i]
+        stringSol+="\n}"
+
+        return stringSol
         
 
 

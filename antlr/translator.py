@@ -15,7 +15,7 @@ def translator():
     printer = CustomListener()
     walker = ParseTreeWalker()
     walker.walk(printer, tree)
-    printer.print_dictionnary()
+    print(printer.print_dictionnary())
 
     
 
