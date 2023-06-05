@@ -1,1 +1,2 @@
-x+6
+if (x>9):
+    print("hola")

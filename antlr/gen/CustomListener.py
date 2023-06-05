@@ -680,6 +680,7 @@ class CustomListener(Python3Listener):
     def enterAtom(self, ctx:Python3Parser.AtomContext):
         if (ctx.NAME() != None):
             if (ctx.getText() == "print"):
+                print("print "+ctx.getText())
                 self.isPrint = True
                 if ("fmt" not in self.customDictionnary["importsname"]):
                     self.customDictionnary["importsname"].append("fmt")
@@ -687,18 +688,24 @@ class CustomListener(Python3Listener):
                 #solutionner le pbm de la parenthèse sortante
             else :
                 self.customDictionnary[self.nameOfDef].append(ctx.getText())
+                print("name "+ctx.getText())
         elif (ctx.NUMBER() != None):
+            print("num "+ctx.getText())
             self.customDictionnary[self.nameOfDef].append(ctx.getText())
         elif (ctx.STRING() != None):
-            self.customDictionnary[self.nameOfDef].append(ctx.getText())
+            if (ctx.getText()[0]!="\""):
+                pass
+            else :
+                print("string "+ctx.getText())
+                self.customDictionnary[self.nameOfDef].append(ctx.getText())
         elif (ctx.getText() == "None"):
             self.customDictionnary[self.nameOfDef].append("nil")
         elif (ctx.getText() == "True"):
             self.customDictionnary[self.nameOfDef].append("true")
         elif (ctx.getText() == "False"):
             self.customDictionnary[self.nameOfDef].append("false")
-        elif (ctx.getText() == "..."):
-            self.customDictionnary[self.nameOfDef].append("...")
+        #elif (ctx.getText() == "..."):
+        #    self.customDictionnary[self.nameOfDef].append("...")
         
 
     # Exit a parse tree produced by Python3Parser#atom.
