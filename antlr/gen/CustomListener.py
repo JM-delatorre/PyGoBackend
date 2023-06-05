@@ -207,6 +207,7 @@ class CustomListener(Python3Listener):
 
     # Enter a parse tree produced by Python3Parser#augassign.
     def enterAugassign(self, ctx:Python3Parser.AugassignContext):
+        self.customDictionnary[self.nameOfDef].append(ctx.getText())
         pass
 
     # Exit a parse tree produced by Python3Parser#augassign.
@@ -633,6 +634,7 @@ class CustomListener(Python3Listener):
 
     # Enter a parse tree produced by Python3Parser#arith_expr.
     def enterArith_expr(self, ctx:Python3Parser.Arith_exprContext):
+        self.customDictionnary[self.nameOfDef].append(ctx.getText())
         pass
 
     # Exit a parse tree produced by Python3Parser#arith_expr.
@@ -642,6 +644,12 @@ class CustomListener(Python3Listener):
 
     # Enter a parse tree produced by Python3Parser#term.
     def enterTerm(self, ctx:Python3Parser.TermContext):
+        if (ctx.getText() == '*'):
+            self.customDictionnary[self.nameOfDef].append(ctx.getText())
+        elif (ctx.getText() == '/'):
+            self.customDictionnary[self.nameOfDef].append(ctx.getText())
+        elif (ctx.getText() == '%'):
+            self.customDictionnary[self.nameOfDef].append(ctx.getText())
         pass
 
     # Exit a parse tree produced by Python3Parser#term.
