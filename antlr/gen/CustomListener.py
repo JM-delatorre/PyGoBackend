@@ -17,7 +17,6 @@ class CustomListener(Python3Listener):
 
     # Enter a parse tree produced by Python3Parser#single_input.
     def enterSingle_input(self, ctx:Python3Parser.Single_inputContext):
-        print("Hola hice una entrada")
         pass
 
     # Exit a parse tree produced by Python3Parser#single_input.
@@ -193,6 +192,15 @@ class CustomListener(Python3Listener):
 
     # Exit a parse tree produced by Python3Parser#augassign.
     def exitAugassign(self, ctx:Python3Parser.AugassignContext):
+        pass
+
+    # Enter a parse tree produced by Python3Parser#assignrule.
+    def enterAssignrule(self, ctx:Python3Parser.AssignruleContext):
+        self.customDictionnary[self.nameOfDef].append(":=")
+        pass
+
+    # Exit a parse tree produced by Python3Parser#assignrule.
+    def exitAssignrule(self, ctx:Python3Parser.AssignruleContext):
         pass
 
 
@@ -387,6 +395,7 @@ class CustomListener(Python3Listener):
 
     # Enter a parse tree produced by Python3Parser#if_stmt.
     def enterIf_stmt(self, ctx:Python3Parser.If_stmtContext):
+        self.customDictionnary[self.nameOfDef].append('if')
         pass
 
     # Exit a parse tree produced by Python3Parser#if_stmt.
@@ -531,6 +540,20 @@ class CustomListener(Python3Listener):
 
     # Enter a parse tree produced by Python3Parser#comp_op.
     def enterComp_op(self, ctx:Python3Parser.Comp_opContext):
+        if (ctx.getText() == '<'):
+            self.customDictionnary[self.nameOfDef].append(ctx.getText())
+        elif (ctx.getText() == '>'):
+            self.customDictionnary[self.nameOfDef].append(ctx.getText())
+        elif (ctx.getText() == '=='):
+            self.customDictionnary[self.nameOfDef].append(ctx.getText())
+        elif (ctx.getText() == ">="):
+            self.customDictionnary[self.nameOfDef].append(ctx.getText())
+        elif (ctx.getText() == "<="):
+            self.customDictionnary[self.nameOfDef].append(ctx.getText())
+        elif (ctx.getText() == "<>"):
+            self.customDictionnary[self.nameOfDef].append(ctx.getText())
+        elif (ctx.getText() == "!="):
+            self.customDictionnary[self.nameOfDef].append(ctx.getText())
         pass
 
     # Exit a parse tree produced by Python3Parser#comp_op.

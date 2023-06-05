@@ -176,6 +176,7 @@ class Python3Listener(ParseTreeListener):
 
     # Exit a parse tree produced by Python3Parser#assignrule.
     def exitAssignrule(self, ctx:Python3Parser.AssignruleContext):
+        print('Salio en assignrule')
         pass
 
 
