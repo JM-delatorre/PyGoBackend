@@ -893,11 +893,11 @@ class CustomListener(Python3Listener):
             else :
                 print("string "+ctx.getText())
                 self.customDictionnary[self.nameOfDef].append(ctx.getText())
-        elif (ctx.getText() == "None"):
+        elif (ctx.getText().__eq__("None")):
             self.customDictionnary[self.nameOfDef].append("nil")
-        elif (ctx.getText() == "True"):
+        elif (ctx.getText().__eq__("True")):
             self.customDictionnary[self.nameOfDef].append("true")
-        elif (ctx.getText() == "False"):
+        elif (ctx.getText().__eq__("False")):
             self.customDictionnary[self.nameOfDef].append("false")
         #elif (ctx.getText() == "..."):
         #    self.customDictionnary[self.nameOfDef].append("...")
