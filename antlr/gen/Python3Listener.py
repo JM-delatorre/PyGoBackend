@@ -539,6 +539,15 @@ class Python3Listener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by Python3Parser#orrule.
+    def enterOrrule(self, ctx:Python3Parser.OrruleContext):
+        pass
+
+    # Exit a parse tree produced by Python3Parser#orrule.
+    def exitOrrule(self, ctx:Python3Parser.OrruleContext):
+        pass
+
+
     # Enter a parse tree produced by Python3Parser#and_test.
     def enterAnd_test(self, ctx:Python3Parser.And_testContext):
         pass
@@ -548,12 +557,30 @@ class Python3Listener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by Python3Parser#andrule.
+    def enterAndrule(self, ctx:Python3Parser.AndruleContext):
+        pass
+
+    # Exit a parse tree produced by Python3Parser#andrule.
+    def exitAndrule(self, ctx:Python3Parser.AndruleContext):
+        pass
+
+
     # Enter a parse tree produced by Python3Parser#not_test.
     def enterNot_test(self, ctx:Python3Parser.Not_testContext):
         pass
 
     # Exit a parse tree produced by Python3Parser#not_test.
     def exitNot_test(self, ctx:Python3Parser.Not_testContext):
+        pass
+
+
+    # Enter a parse tree produced by Python3Parser#notrule.
+    def enterNotrule(self, ctx:Python3Parser.NotruleContext):
+        pass
+
+    # Exit a parse tree produced by Python3Parser#notrule.
+    def exitNotrule(self, ctx:Python3Parser.NotruleContext):
         pass
 
 
@@ -593,12 +620,30 @@ class Python3Listener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by Python3Parser#orexprrule.
+    def enterOrexprrule(self, ctx:Python3Parser.OrexprruleContext):
+        pass
+
+    # Exit a parse tree produced by Python3Parser#orexprrule.
+    def exitOrexprrule(self, ctx:Python3Parser.OrexprruleContext):
+        pass
+
+
     # Enter a parse tree produced by Python3Parser#xor_expr.
     def enterXor_expr(self, ctx:Python3Parser.Xor_exprContext):
         pass
 
     # Exit a parse tree produced by Python3Parser#xor_expr.
     def exitXor_expr(self, ctx:Python3Parser.Xor_exprContext):
+        pass
+
+
+    # Enter a parse tree produced by Python3Parser#xorexprrule.
+    def enterXorexprrule(self, ctx:Python3Parser.XorexprruleContext):
+        pass
+
+    # Exit a parse tree produced by Python3Parser#xorexprrule.
+    def exitXorexprrule(self, ctx:Python3Parser.XorexprruleContext):
         pass
 
 
@@ -611,12 +656,30 @@ class Python3Listener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by Python3Parser#andexprrule.
+    def enterAndexprrule(self, ctx:Python3Parser.AndexprruleContext):
+        pass
+
+    # Exit a parse tree produced by Python3Parser#andexprrule.
+    def exitAndexprrule(self, ctx:Python3Parser.AndexprruleContext):
+        pass
+
+
     # Enter a parse tree produced by Python3Parser#shift_expr.
     def enterShift_expr(self, ctx:Python3Parser.Shift_exprContext):
         pass
 
     # Exit a parse tree produced by Python3Parser#shift_expr.
     def exitShift_expr(self, ctx:Python3Parser.Shift_exprContext):
+        pass
+
+
+    # Enter a parse tree produced by Python3Parser#shiftexprrule.
+    def enterShiftexprrule(self, ctx:Python3Parser.ShiftexprruleContext):
+        pass
+
+    # Exit a parse tree produced by Python3Parser#shiftexprrule.
+    def exitShiftexprrule(self, ctx:Python3Parser.ShiftexprruleContext):
         pass
 
 
