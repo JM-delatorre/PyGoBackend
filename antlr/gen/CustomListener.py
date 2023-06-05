@@ -5,6 +5,8 @@ if __name__ is not None and "." in __name__:
 else:
     from Python3Parser import Python3Parser
 
+import sys
+
 from .Python3Listener import Python3Listener
 # This class defines a complete listener for a parse tree produced by Python3Parser.
 class CustomListener(Python3Listener):
@@ -12,8 +14,21 @@ class CustomListener(Python3Listener):
     # parameter that checks whether we are in the main of in a method
     nameOfDef = "main"
     # custom dictionnary, that has an "import" entry, a "main entry", and another entry for each method with its name as the key
-    customDictionnary = {"imports" : [""],
-                         "main" : [""]}
+    customDictionnary = {"importsfrom" : [],
+                         "importsname" :[],
+                         "main" : []}
+    
+    # parameter to check whether we're in a print, if yes, it prints another parenthesis at the end of the statement
+    isPrint = False
+    
+    def __init__(self):
+        self.nameOfDef = "main"
+        # custom dictionnary, that has an "import" entry, a "main entry", and another entry for each method with its name as the key
+        self.customDictionnary = {"importsfrom" : [],
+                         "importsname" :[],
+                         "main" : []}
+        self.isPrint == False
+
 
     # Enter a parse tree produced by Python3Parser#single_input.
     def enterSingle_input(self, ctx:Python3Parser.Single_inputContext):
@@ -22,6 +37,10 @@ class CustomListener(Python3Listener):
 
     # Exit a parse tree produced by Python3Parser#single_input.
     def exitSingle_input(self, ctx:Python3Parser.Single_inputContext):
+        if (self.isPrint):
+            self.customDictionnary[self.nameOfDef].append(")")
+            self.isPrinte = False
+        self.customDictionnary[self.nameOfDef].append("\n")
         pass
 
 
@@ -225,6 +244,7 @@ class CustomListener(Python3Listener):
 
     # Enter a parse tree produced by Python3Parser#break_stmt.
     def enterBreak_stmt(self, ctx:Python3Parser.Break_stmtContext):
+        self.customDictionnary[self.nameOfDef].append("break")
         pass
 
     # Exit a parse tree produced by Python3Parser#break_stmt.
@@ -234,6 +254,7 @@ class CustomListener(Python3Listener):
 
     # Enter a parse tree produced by Python3Parser#continue_stmt.
     def enterContinue_stmt(self, ctx:Python3Parser.Continue_stmtContext):
+        self.customDictionnary[self.nameOfDef].append("continue")
         pass
 
     # Exit a parse tree produced by Python3Parser#continue_stmt.
@@ -274,11 +295,13 @@ class CustomListener(Python3Listener):
 
     # Exit a parse tree produced by Python3Parser#import_stmt.
     def exitImport_stmt(self, ctx:Python3Parser.Import_stmtContext):
+        self.nameOfDef == "main"
         pass
 
 
     # Enter a parse tree produced by Python3Parser#import_name.
     def enterImport_name(self, ctx:Python3Parser.Import_nameContext):
+        self.nameOfDef == "importsname"
         pass
 
     # Exit a parse tree produced by Python3Parser#import_name.
@@ -288,6 +311,7 @@ class CustomListener(Python3Listener):
 
     # Enter a parse tree produced by Python3Parser#import_from.
     def enterImport_from(self, ctx:Python3Parser.Import_fromContext):
+        self.nameOfDef == "importsfrom"
         pass
 
     # Exit a parse tree produced by Python3Parser#import_from.
@@ -306,6 +330,7 @@ class CustomListener(Python3Listener):
 
     # Enter a parse tree produced by Python3Parser#dotted_as_name.
     def enterDotted_as_name(self, ctx:Python3Parser.Dotted_as_nameContext):
+        #self.customDictionnary[self.nameOfDef].append(ctx.getText())
         pass
 
     # Exit a parse tree produced by Python3Parser#dotted_as_name.
@@ -632,14 +657,17 @@ class CustomListener(Python3Listener):
     def enterAtom(self, ctx:Python3Parser.AtomContext):
         if (ctx.NAME() != None):
             if (ctx.getText() == "print"):
+                self.isPrint = True
+                if ("fmt" not in self.customDictionnary["importsname"]):
+                    self.customDictionnary["importsname"].append("fmt")
                 self.customDictionnary[self.nameOfDef].append("fmt.Print(")
                 #solutionner le pbm de la parenthèse sortante
-            self.customDictionnary[self.nameOfDef].append(ctx.getText())
-            print("entered, "+str(self.customDictionnary[self.nameOfDef]))
+            else :
+                self.customDictionnary[self.nameOfDef].append(ctx.getText())
         elif (ctx.NUMBER() != None):
-            self.customDictionnary[self.nameOfDef].append(ctx.NUMBER())
+            self.customDictionnary[self.nameOfDef].append(ctx.getText())
         elif (ctx.STRING() != None):
-            self.customDictionnary[self.nameOfDef].append(ctx.STRING())
+            self.customDictionnary[self.nameOfDef].append(ctx.getText())
         elif (ctx.getText() == "None"):
             self.customDictionnary[self.nameOfDef].append("nil")
         elif (ctx.getText() == "True"):
@@ -811,15 +839,31 @@ class CustomListener(Python3Listener):
     # method that prints the dictionnary : first the imports, then the methods, then the main
     def print_dictionnary(self):
         print(self.customDictionnary)
-        for i in range (0, len(self.customDictionnary["imports"])) :
-            print("import "+self.customDictionnary["imports"][i])
+
+        # simple imports
+        if (len(self.customDictionnary["importsname"]) == 0):
+            pass
+        elif (len(self.customDictionnary["importsname"]) == 1):
+            print("import "+self.customDictionnary["importsname"][0]+"\n")
+        else :
+            print("import (\n")
+            for i in range (0, len(self.customDictionnary["importsname"])) :
+                if (self.customDictionnary["importsname"][i] == "\n"):
+                    print("\nimport ",end='', flush=True)
+                else :
+                    print(self.customDictionnary["importsname"][i],end='', flush=True)
+            print(")")
+        
+        # imports with froms : not for now
+
         
         # add the printing of the functions
 
         # print the main
-        print("func main(){\n")
+        print("func main(){")
         for i in range (0, len(self.customDictionnary["main"])) :
-            print(self.customDictionnary["main"][i])
+            print(self.customDictionnary["main"][i], end="", flush=True)
+        print("}")
         
 
 
