@@ -20,6 +20,9 @@ class CustomListener(Python3Listener):
     
     # parameter to check whether we're in a print, if yes, it prints another parenthesis at the end of the statement
     isPrint = False
+
+    # parameter to indent
+    counterIndent = 0
     
     def __init__(self):
         self.nameOfDef = "main"
@@ -28,6 +31,8 @@ class CustomListener(Python3Listener):
                          "importsname" :[],
                          "main" : []}
         self.isPrint == False
+        self.counterIndent = 0
+
 
 
     # Enter a parse tree produced by Python3Parser#single_input.
@@ -36,10 +41,6 @@ class CustomListener(Python3Listener):
 
     # Exit a parse tree produced by Python3Parser#single_input.
     def exitSingle_input(self, ctx:Python3Parser.Single_inputContext):
-        if (self.isPrint):
-            self.customDictionnary[self.nameOfDef].append(")")
-            self.isPrinte = False
-        self.customDictionnary[self.nameOfDef].append("\n")
         pass
 
 
@@ -153,10 +154,20 @@ class CustomListener(Python3Listener):
 
     # Enter a parse tree produced by Python3Parser#stmt.
     def enterStmt(self, ctx:Python3Parser.StmtContext):
+        indentation = ""
+        if (self.counterIndent == 0):
+            pass
+        for i in range (0, self.counterIndent):
+            indentation +="\t"
+        self.customDictionnary[self.nameOfDef].append(indentation)
         pass
 
     # Exit a parse tree produced by Python3Parser#stmt.
     def exitStmt(self, ctx:Python3Parser.StmtContext):
+        if (self.isPrint):
+            self.customDictionnary[self.nameOfDef].append(")")
+            self.isPrinte = False
+        self.customDictionnary[self.nameOfDef].append("\n")
         pass
 
 
@@ -431,19 +442,23 @@ class CustomListener(Python3Listener):
 
     # Enter a parse tree produced by Python3Parser#while_stmt.
     def enterWhile_stmt(self, ctx:Python3Parser.While_stmtContext):
+        self.counterIndent+=1
         pass
 
     # Exit a parse tree produced by Python3Parser#while_stmt.
     def exitWhile_stmt(self, ctx:Python3Parser.While_stmtContext):
+        self.counterIndent-=1
         pass
 
 
     # Enter a parse tree produced by Python3Parser#for_stmt.
     def enterFor_stmt(self, ctx:Python3Parser.For_stmtContext):
+        self.counterIndent +=1
         pass
 
     # Exit a parse tree produced by Python3Parser#for_stmt.
     def exitFor_stmt(self, ctx:Python3Parser.For_stmtContext):
+        self.counterIndent -=1 
         pass
 
 
