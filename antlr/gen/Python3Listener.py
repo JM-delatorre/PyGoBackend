@@ -170,6 +170,15 @@ class Python3Listener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by Python3Parser#assignrule.
+    def enterAssignrule(self, ctx:Python3Parser.AssignruleContext):
+        pass
+
+    # Exit a parse tree produced by Python3Parser#assignrule.
+    def exitAssignrule(self, ctx:Python3Parser.AssignruleContext):
+        pass
+
+
     # Enter a parse tree produced by Python3Parser#testlist_star_expr.
     def enterTestlist_star_expr(self, ctx:Python3Parser.Testlist_star_exprContext):
         pass
