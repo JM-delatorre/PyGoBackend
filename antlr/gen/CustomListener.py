@@ -19,8 +19,6 @@ class CustomListener(Python3Listener):
                          "importsname" :[],
                          "main" : []}
     
-    # parameter to check whether we're in a print, if yes, it prints another parenthesis at the end of the statement
-    isPrint = False
     # parameter to, if we're in a loop, check the type of loop : allows to add stg after the tests
     # equal to "" when there's nothing, while when while, for when for, ...
     isLoop = ""
@@ -39,7 +37,6 @@ class CustomListener(Python3Listener):
         self.customDictionnary = {"importsfrom" : [],
                          "importsname" :[],
                          "main" : []}
-        self.isPrint == False
         self.counterIndent = 0
 
         self.isLoop = ""
@@ -458,9 +455,6 @@ class CustomListener(Python3Listener):
 
     # Exit a parse tree produced by Python3Parser#compound_stmt.
     def exitCompound_stmt(self, ctx:Python3Parser.Compound_stmtContext):
-        if (self.isPrint):
-            self.customDictionnary[self.nameOfDef].append(")")
-            self.isPrinte = False
         self.customDictionnary[self.nameOfDef].append("\n")
         pass
 
@@ -876,8 +870,6 @@ class CustomListener(Python3Listener):
             self.customDictionnary[self.nameOfDef].append(" false")
         if (ctx.NAME() != None):
             if (ctx.getText() == "print"):
-                print("print "+ctx.getText())
-                self.isPrint = True
                 if ("fmt" not in self.customDictionnary["importsname"]):
                     self.customDictionnary["importsname"].append("fmt")
                 self.customDictionnary[self.nameOfDef].append("fmt.Print")
