@@ -555,6 +555,7 @@ class CustomListener(Python3Listener):
     # Exit a parse tree produced by Python3Parser#while_stmt.
     def exitWhile_stmt(self, ctx:Python3Parser.While_stmtContext):
         self.counterIndent-=1
+        string = ""
         for i in range(0, self.counterIndent):
             string += '\t'
         if (self.nameOfDef=="main"):
@@ -583,6 +584,7 @@ class CustomListener(Python3Listener):
     # Exit a parse tree produced by Python3Parser#for_stmt.
     def exitFor_stmt(self, ctx:Python3Parser.For_stmtContext):
         self.counterIndent -=1 
+        string = ""
         for i in range(0, self.counterIndent):
             string += '\t'
         if (self.nameOfDef=="main"):
