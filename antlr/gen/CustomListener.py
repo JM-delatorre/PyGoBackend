@@ -23,6 +23,7 @@ class CustomListener(Python3Listener):
     # parameter to, if we're in a loop, check the type of loop : allows to add stg after the tests
     # equal to "" when there's nothing, while when while, for when for, ...
     isLoop = ""
+    forArg = ""
 
     # parameter to indent
     counterIndent = 0
@@ -35,6 +36,9 @@ class CustomListener(Python3Listener):
                          "main" : []}
         self.isPrint == False
         self.counterIndent = 0
+
+        self.isLoop = ""
+        self.forArg = ""
 
 
 
@@ -485,6 +489,8 @@ class CustomListener(Python3Listener):
     # Enter a parse tree produced by Python3Parser#for_stmt.
     def enterFor_stmt(self, ctx:Python3Parser.For_stmtContext):
         self.counterIndent +=1
+        self.isLoop = "for"
+        self.customDictionnary[self.nameOfDef].append("for ")
         pass
 
     # Exit a parse tree produced by Python3Parser#for_stmt.
@@ -765,7 +771,6 @@ class CustomListener(Python3Listener):
     # Enter a parse tree produced by Python3Parser#atom.
     def enterAtom(self, ctx:Python3Parser.AtomContext):
         if (ctx.NAME() != None):
-            print('Name ' + ctx.getText())
             if (ctx.getText() == "print"):
                 print("print "+ctx.getText())
                 self.isPrint = True
@@ -775,6 +780,8 @@ class CustomListener(Python3Listener):
                 #solutionner le pbm de la parenthèse sortante
             else :
                 self.customDictionnary[self.nameOfDef].append(ctx.getText())
+                if self.isLoop == "for" and self.forArg == "" :
+                    self.forArg = ctx.getText()
                 print("name "+ctx.getText())
         elif (ctx.NUMBER() != None):
             print("num "+ctx.getText())
@@ -851,6 +858,10 @@ class CustomListener(Python3Listener):
 
     # Exit a parse tree produced by Python3Parser#exprlist.
     def exitExprlist(self, ctx:Python3Parser.ExprlistContext):
+        if (self.isLoop == "for"):
+            self.customDictionnary[self.nameOfDef].append("; ")
+            # recap cause the grammar is just weird at this point, there's no range
+            self.customDictionnary[self.nameOfDef].append(self.forArg+"< len(")
         pass
 
 
@@ -860,6 +871,8 @@ class CustomListener(Python3Listener):
 
     # Exit a parse tree produced by Python3Parser#testlist.
     def exitTestlist(self, ctx:Python3Parser.TestlistContext):
+        if (self.isLoop == "for"):
+            self.customDictionnary[self.nameOfDef].append("); "+self.forArg+"++ {\n")
         pass
 
 
