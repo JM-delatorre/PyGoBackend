@@ -48,6 +48,7 @@ class CustomListener(Python3Listener):
 
     # Enter a parse tree produced by Python3Parser#single_input.
     def enterSingle_input(self, ctx:Python3Parser.Single_inputContext):
+        print("dans single input mais ca fait chier")
         pass
 
     # Exit a parse tree produced by Python3Parser#single_input.
@@ -57,6 +58,7 @@ class CustomListener(Python3Listener):
 
     # Enter a parse tree produced by Python3Parser#file_input.
     def enterFile_input(self, ctx:Python3Parser.File_inputContext):
+        print("on est bien la")
         pass
 
     # Exit a parse tree produced by Python3Parser#file_input.
@@ -111,6 +113,7 @@ class CustomListener(Python3Listener):
 
     # Enter a parse tree produced by Python3Parser#funcdef.
     def enterFuncdef(self, ctx:Python3Parser.FuncdefContext):
+        print("oeeee")
         self.counterIndent +=1
         if (ctx.NAME() not in self.customDictionnary.keys()):
             self.customDictionnary[ctx.NAME()]=[]
@@ -308,6 +311,7 @@ class CustomListener(Python3Listener):
 
     # Enter a parse tree produced by Python3Parser#return_stmt.
     def enterReturn_stmt(self, ctx:Python3Parser.Return_stmtContext):
+        self.customDictionnary[self.nameOfDef].append("return ")
         pass
 
     # Exit a parse tree produced by Python3Parser#return_stmt.
@@ -339,27 +343,29 @@ class CustomListener(Python3Listener):
 
     # Exit a parse tree produced by Python3Parser#import_stmt.
     def exitImport_stmt(self, ctx:Python3Parser.Import_stmtContext):
-        self.nameOfDef == "main"
+        self.nameOfDef = "main"
         pass
 
 
     # Enter a parse tree produced by Python3Parser#import_name.
     def enterImport_name(self, ctx:Python3Parser.Import_nameContext):
-        self.nameOfDef == "importsname"
+        self.nameOfDef = "importsname"
         pass
 
     # Exit a parse tree produced by Python3Parser#import_name.
     def exitImport_name(self, ctx:Python3Parser.Import_nameContext):
+        self.nameOfDef = "main"
         pass
 
 
     # Enter a parse tree produced by Python3Parser#import_from.
     def enterImport_from(self, ctx:Python3Parser.Import_fromContext):
-        self.nameOfDef == "importsfrom"
+        self.nameOfDef = "importsfrom"
         pass
 
     # Exit a parse tree produced by Python3Parser#import_from.
     def exitImport_from(self, ctx:Python3Parser.Import_fromContext):
+        self.nameOfDef = "main"
         pass
 
 
@@ -402,6 +408,7 @@ class CustomListener(Python3Listener):
 
     # Enter a parse tree produced by Python3Parser#dotted_name.
     def enterDotted_name(self, ctx:Python3Parser.Dotted_nameContext):
+        self.customDictionnary[self.nameOfDef].append(str(ctx.NAME()[0]))
         pass
 
     # Exit a parse tree produced by Python3Parser#dotted_name.
