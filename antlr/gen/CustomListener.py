@@ -666,7 +666,6 @@ class CustomListener(Python3Listener):
 
     # Enter a parse tree produced by Python3Parser#arith_expr.
     def enterArith_expr(self, ctx:Python3Parser.Arith_exprContext):
-        self.customDictionnary[self.nameOfDef].append(ctx.getText())
         pass
 
     # Exit a parse tree produced by Python3Parser#arith_expr.
@@ -676,16 +675,46 @@ class CustomListener(Python3Listener):
 
     # Enter a parse tree produced by Python3Parser#term.
     def enterTerm(self, ctx:Python3Parser.TermContext):
+        pass
+
+    # Exit a parse tree produced by Python3Parser#term.
+    def exitTerm(self, ctx:Python3Parser.TermContext):
+        pass
+
+     # Enter a parse tree produced by Python3Parser#arithmeticrule.
+    def enterArithmeticrule(self, ctx:Python3Parser.ArithmeticruleContext):
+        print(ctx.getText())
         if (ctx.getText() == '*'):
             self.customDictionnary[self.nameOfDef].append(ctx.getText())
         elif (ctx.getText() == '/'):
             self.customDictionnary[self.nameOfDef].append(ctx.getText())
         elif (ctx.getText() == '%'):
             self.customDictionnary[self.nameOfDef].append(ctx.getText())
+        elif (ctx.getText() == '//'):
+            self.customDictionnary[self.nameOfDef].append('/')
         pass
 
-    # Exit a parse tree produced by Python3Parser#term.
-    def exitTerm(self, ctx:Python3Parser.TermContext):
+    # Exit a parse tree produced by Python3Parser#arithmeticrule.
+    def exitArithmeticrule(self, ctx:Python3Parser.ArithmeticruleContext):
+        pass
+
+
+    # Enter a parse tree produced by Python3Parser#arithmeticrule1.
+    def enterArithmeticrule1(self, ctx:Python3Parser.Arithmeticrule1Context):
+        self.customDictionnary[self.nameOfDef].append(ctx.getText())
+        pass
+
+    # Exit a parse tree produced by Python3Parser#arithmeticrule1.
+    def exitArithmeticrule1(self, ctx:Python3Parser.Arithmeticrule1Context):
+        pass
+
+
+    # Enter a parse tree produced by Python3Parser#arithmeticrule2.
+    def enterArithmeticrule2(self, ctx:Python3Parser.Arithmeticrule2Context):
+        pass
+
+    # Exit a parse tree produced by Python3Parser#arithmeticrule2.
+    def exitArithmeticrule2(self, ctx:Python3Parser.Arithmeticrule2Context):
         pass
 
 
@@ -719,6 +748,7 @@ class CustomListener(Python3Listener):
     # Enter a parse tree produced by Python3Parser#atom.
     def enterAtom(self, ctx:Python3Parser.AtomContext):
         if (ctx.NAME() != None):
+            print('Name ' + ctx.getText())
             if (ctx.getText() == "print"):
                 print("print "+ctx.getText())
                 self.isPrint = True
