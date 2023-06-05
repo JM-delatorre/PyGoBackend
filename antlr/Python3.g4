@@ -156,8 +156,8 @@ def atStartOfInput(self):
  * parser rules
  */
 
-single_input: NEWLINE | simple_stmt | compound_stmt NEWLINE;
 file_input: (NEWLINE | stmt)* EOF;
+single_input: NEWLINE | simple_stmt | compound_stmt NEWLINE;
 eval_input: testlist NEWLINE* EOF;
 
 decorator: '@' dotted_name ( '(' (arglist)? ')' )? NEWLINE;
