@@ -1,4 +1,4 @@
-# Generated from .\Python3.g4 by ANTLR 4.12.0
+# Generated from Python3.g4 by ANTLR 4.13.0
 # encoding: utf-8
 from antlr4 import *
 from io import StringIO
@@ -25,14 +25,14 @@ def serializedATN():
         78,2,79,7,79,2,80,7,80,2,81,7,81,2,82,7,82,2,83,7,83,2,84,7,84,2,
         85,7,85,2,86,7,86,2,87,7,87,2,88,7,88,2,89,7,89,2,90,7,90,2,91,7,
         91,2,92,7,92,2,93,7,93,2,94,7,94,2,95,7,95,2,96,7,96,2,97,7,97,2,
-        98,7,98,2,99,7,99,2,100,7,100,2,101,7,101,1,0,1,0,1,0,1,0,1,0,3,
-        0,210,8,0,1,1,1,1,5,1,214,8,1,10,1,12,1,217,9,1,1,1,1,1,1,2,1,2,
-        5,2,223,8,2,10,2,12,2,226,9,2,1,2,1,2,1,3,1,3,1,3,1,3,3,3,234,8,
-        3,1,3,3,3,237,8,3,1,3,1,3,1,4,4,4,242,8,4,11,4,12,4,243,1,5,1,5,
-        1,5,1,5,3,5,250,8,5,1,6,1,6,1,6,1,7,1,7,1,7,1,7,1,7,3,7,260,8,7,
-        1,7,1,7,1,7,1,8,1,8,3,8,267,8,8,1,8,1,8,1,9,1,9,1,9,3,9,274,8,9,
-        1,9,1,9,1,9,1,9,3,9,280,8,9,5,9,282,8,9,10,9,12,9,285,9,9,1,9,1,
-        9,1,9,3,9,290,8,9,1,9,1,9,1,9,1,9,3,9,296,8,9,5,9,298,8,9,10,9,12,
+        98,7,98,2,99,7,99,2,100,7,100,2,101,7,101,1,0,1,0,5,0,207,8,0,10,
+        0,12,0,210,9,0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,3,1,219,8,1,1,2,1,2,5,
+        2,223,8,2,10,2,12,2,226,9,2,1,2,1,2,1,3,1,3,1,3,1,3,3,3,234,8,3,
+        1,3,3,3,237,8,3,1,3,1,3,1,4,4,4,242,8,4,11,4,12,4,243,1,5,1,5,1,
+        5,1,5,3,5,250,8,5,1,6,1,6,1,6,1,7,1,7,1,7,1,7,1,7,3,7,260,8,7,1,
+        7,1,7,1,7,1,8,1,8,3,8,267,8,8,1,8,1,8,1,9,1,9,1,9,3,9,274,8,9,1,
+        9,1,9,1,9,1,9,3,9,280,8,9,5,9,282,8,9,10,9,12,9,285,9,9,1,9,1,9,
+        1,9,3,9,290,8,9,1,9,1,9,1,9,1,9,3,9,296,8,9,5,9,298,8,9,10,9,12,
         9,301,9,9,1,9,1,9,1,9,1,9,3,9,307,8,9,3,9,309,8,9,3,9,311,8,9,1,
         9,1,9,1,9,3,9,316,8,9,3,9,318,8,9,3,9,320,8,9,1,9,1,9,3,9,324,8,
         9,1,9,1,9,1,9,1,9,3,9,330,8,9,5,9,332,8,9,10,9,12,9,335,9,9,1,9,
@@ -119,8 +119,8 @@ def serializedATN():
         126,128,130,132,134,136,138,140,142,144,146,148,150,152,154,156,
         158,160,162,164,166,168,170,172,174,176,178,180,182,184,186,188,
         190,192,194,196,198,200,202,0,6,1,0,83,95,1,0,49,50,1,0,64,65,3,
-        0,51,51,68,70,81,81,1,0,66,67,2,0,66,67,71,71,1280,0,209,1,0,0,0,
-        2,215,1,0,0,0,4,220,1,0,0,0,6,229,1,0,0,0,8,241,1,0,0,0,10,245,1,
+        0,51,51,68,70,81,81,1,0,66,67,2,0,66,67,71,71,1280,0,208,1,0,0,0,
+        2,218,1,0,0,0,4,220,1,0,0,0,6,229,1,0,0,0,8,241,1,0,0,0,10,245,1,
         0,0,0,12,251,1,0,0,0,14,254,1,0,0,0,16,264,1,0,0,0,18,351,1,0,0,
         0,20,353,1,0,0,0,22,439,1,0,0,0,24,441,1,0,0,0,26,445,1,0,0,0,28,
         447,1,0,0,0,30,468,1,0,0,0,32,470,1,0,0,0,34,489,1,0,0,0,36,496,
@@ -144,15 +144,15 @@ def serializedATN():
         0,178,1021,1,0,0,0,180,1027,1,0,0,0,182,1042,1,0,0,0,184,1101,1,
         0,0,0,186,1103,1,0,0,0,188,1115,1,0,0,0,190,1138,1,0,0,0,192,1142,
         1,0,0,0,194,1145,1,0,0,0,196,1154,1,0,0,0,198,1159,1,0,0,0,200,1161,
-        1,0,0,0,202,1168,1,0,0,0,204,210,5,39,0,0,205,210,3,28,14,0,206,
-        207,3,80,40,0,207,208,5,39,0,0,208,210,1,0,0,0,209,204,1,0,0,0,209,
-        205,1,0,0,0,209,206,1,0,0,0,210,1,1,0,0,0,211,214,5,39,0,0,212,214,
-        3,26,13,0,213,211,1,0,0,0,213,212,1,0,0,0,214,217,1,0,0,0,215,213,
-        1,0,0,0,215,216,1,0,0,0,216,218,1,0,0,0,217,215,1,0,0,0,218,219,
-        5,0,0,1,219,3,1,0,0,0,220,224,3,182,91,0,221,223,5,39,0,0,222,221,
-        1,0,0,0,223,226,1,0,0,0,224,222,1,0,0,0,224,225,1,0,0,0,225,227,
-        1,0,0,0,226,224,1,0,0,0,227,228,5,0,0,1,228,5,1,0,0,0,229,230,5,
-        81,0,0,230,236,3,72,36,0,231,233,5,52,0,0,232,234,3,188,94,0,233,
+        1,0,0,0,202,1168,1,0,0,0,204,207,5,39,0,0,205,207,3,26,13,0,206,
+        204,1,0,0,0,206,205,1,0,0,0,207,210,1,0,0,0,208,206,1,0,0,0,208,
+        209,1,0,0,0,209,211,1,0,0,0,210,208,1,0,0,0,211,212,5,0,0,1,212,
+        1,1,0,0,0,213,219,5,39,0,0,214,219,3,28,14,0,215,216,3,80,40,0,216,
+        217,5,39,0,0,217,219,1,0,0,0,218,213,1,0,0,0,218,214,1,0,0,0,218,
+        215,1,0,0,0,219,3,1,0,0,0,220,224,3,182,91,0,221,223,5,39,0,0,222,
+        221,1,0,0,0,223,226,1,0,0,0,224,222,1,0,0,0,224,225,1,0,0,0,225,
+        227,1,0,0,0,226,224,1,0,0,0,227,228,5,0,0,1,228,5,1,0,0,0,229,230,
+        5,81,0,0,230,236,3,72,36,0,231,233,5,52,0,0,232,234,3,188,94,0,233,
         232,1,0,0,0,233,234,1,0,0,0,234,235,1,0,0,0,235,237,5,53,0,0,236,
         231,1,0,0,0,236,237,1,0,0,0,237,238,1,0,0,0,238,239,5,39,0,0,239,
         7,1,0,0,0,240,242,3,6,3,0,241,240,1,0,0,0,242,243,1,0,0,0,243,241,
@@ -452,7 +452,7 @@ def serializedATN():
         1,0,0,0,1161,1163,5,32,0,0,1162,1164,3,202,101,0,1163,1162,1,0,0,
         0,1163,1164,1,0,0,0,1164,201,1,0,0,0,1165,1166,5,7,0,0,1166,1169,
         3,110,55,0,1167,1169,3,182,91,0,1168,1165,1,0,0,0,1168,1167,1,0,
-        0,0,1169,203,1,0,0,0,166,209,213,215,224,233,236,243,249,259,266,
+        0,0,1169,203,1,0,0,0,166,206,208,218,224,233,236,243,249,259,266,
         273,279,283,289,295,299,306,308,310,315,317,319,323,329,333,340,
         342,344,349,351,356,361,367,371,377,383,387,394,396,398,403,405,
         407,411,417,421,428,430,432,437,439,445,452,456,468,475,480,484,
@@ -516,8 +516,8 @@ class Python3Parser ( Parser ):
                       "IDIV_ASSIGN", "SKIP_", "UNKNOWN_CHAR", "INDENT", 
                       "DEDENT" ]
 
-    RULE_single_input = 0
-    RULE_file_input = 1
+    RULE_file_input = 0
+    RULE_single_input = 1
     RULE_eval_input = 2
     RULE_decorator = 3
     RULE_decorators = 4
@@ -619,7 +619,7 @@ class Python3Parser ( Parser ):
     RULE_yield_expr = 100
     RULE_yield_arg = 101
 
-    ruleNames =  [ "single_input", "file_input", "eval_input", "decorator", 
+    ruleNames =  [ "file_input", "single_input", "eval_input", "decorator", 
                    "decorators", "decorated", "async_funcdef", "funcdef", 
                    "parameters", "typedargslist", "tfpdef", "varargslist", 
                    "vfpdef", "stmt", "simple_stmt", "small_stmt", "expr_stmt", 
@@ -747,80 +747,11 @@ class Python3Parser ( Parser ):
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
-        self.checkVersion("4.12.0")
+        self.checkVersion("4.13.0")
         self._interp = ParserATNSimulator(self, self.atn, self.decisionsToDFA, self.sharedContextCache)
         self._predicates = None
 
 
-
-
-    class Single_inputContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def NEWLINE(self):
-            return self.getToken(Python3Parser.NEWLINE, 0)
-
-        def simple_stmt(self):
-            return self.getTypedRuleContext(Python3Parser.Simple_stmtContext,0)
-
-
-        def compound_stmt(self):
-            return self.getTypedRuleContext(Python3Parser.Compound_stmtContext,0)
-
-
-        def getRuleIndex(self):
-            return Python3Parser.RULE_single_input
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterSingle_input" ):
-                listener.enterSingle_input(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitSingle_input" ):
-                listener.exitSingle_input(self)
-
-
-
-
-    def single_input(self):
-
-        localctx = Python3Parser.Single_inputContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 0, self.RULE_single_input)
-        try:
-            self.state = 209
-            self._errHandler.sync(self)
-            token = self._input.LA(1)
-            if token in [39]:
-                self.enterOuterAlt(localctx, 1)
-                self.state = 204
-                self.match(Python3Parser.NEWLINE)
-                pass
-            elif token in [1, 2, 5, 6, 7, 8, 10, 11, 12, 23, 26, 28, 29, 30, 32, 33, 34, 35, 36, 38, 40, 50, 51, 52, 59, 66, 67, 71, 72]:
-                self.enterOuterAlt(localctx, 2)
-                self.state = 205
-                self.simple_stmt()
-                pass
-            elif token in [4, 13, 16, 17, 19, 21, 31, 37, 81]:
-                self.enterOuterAlt(localctx, 3)
-                self.state = 206
-                self.compound_stmt()
-                self.state = 207
-                self.match(Python3Parser.NEWLINE)
-                pass
-            else:
-                raise NoViableAltException(self)
-
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
 
 
     class File_inputContext(ParserRuleContext):
@@ -863,34 +794,103 @@ class Python3Parser ( Parser ):
     def file_input(self):
 
         localctx = Python3Parser.File_inputContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 2, self.RULE_file_input)
+        self.enterRule(localctx, 0, self.RULE_file_input)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 215
+            self.state = 208
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while (((_la) & ~0x3f) == 0 and ((1 << _la) & 584344250484473334) != 0) or ((((_la - 66)) & ~0x3f) == 0 and ((1 << (_la - 66)) & 32867) != 0):
-                self.state = 213
+                self.state = 206
                 self._errHandler.sync(self)
                 token = self._input.LA(1)
                 if token in [39]:
-                    self.state = 211
+                    self.state = 204
                     self.match(Python3Parser.NEWLINE)
                     pass
                 elif token in [1, 2, 4, 5, 6, 7, 8, 10, 11, 12, 13, 16, 17, 19, 21, 23, 26, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 40, 50, 51, 52, 59, 66, 67, 71, 72, 81]:
-                    self.state = 212
+                    self.state = 205
                     self.stmt()
                     pass
                 else:
                     raise NoViableAltException(self)
 
-                self.state = 217
+                self.state = 210
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 218
+            self.state = 211
             self.match(Python3Parser.EOF)
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class Single_inputContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def NEWLINE(self):
+            return self.getToken(Python3Parser.NEWLINE, 0)
+
+        def simple_stmt(self):
+            return self.getTypedRuleContext(Python3Parser.Simple_stmtContext,0)
+
+
+        def compound_stmt(self):
+            return self.getTypedRuleContext(Python3Parser.Compound_stmtContext,0)
+
+
+        def getRuleIndex(self):
+            return Python3Parser.RULE_single_input
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterSingle_input" ):
+                listener.enterSingle_input(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitSingle_input" ):
+                listener.exitSingle_input(self)
+
+
+
+
+    def single_input(self):
+
+        localctx = Python3Parser.Single_inputContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 2, self.RULE_single_input)
+        try:
+            self.state = 218
+            self._errHandler.sync(self)
+            token = self._input.LA(1)
+            if token in [39]:
+                self.enterOuterAlt(localctx, 1)
+                self.state = 213
+                self.match(Python3Parser.NEWLINE)
+                pass
+            elif token in [1, 2, 5, 6, 7, 8, 10, 11, 12, 23, 26, 28, 29, 30, 32, 33, 34, 35, 36, 38, 40, 50, 51, 52, 59, 66, 67, 71, 72]:
+                self.enterOuterAlt(localctx, 2)
+                self.state = 214
+                self.simple_stmt()
+                pass
+            elif token in [4, 13, 16, 17, 19, 21, 31, 37, 81]:
+                self.enterOuterAlt(localctx, 3)
+                self.state = 215
+                self.compound_stmt()
+                self.state = 216
+                self.match(Python3Parser.NEWLINE)
+                pass
+            else:
+                raise NoViableAltException(self)
+
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)

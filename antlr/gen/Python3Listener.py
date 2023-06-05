@@ -1,6 +1,6 @@
-# Generated from .\Python3.g4 by ANTLR 4.12.0
+# Generated from Python3.g4 by ANTLR 4.13.0
 from antlr4 import *
-if __name__ is not None and "." in __name__:
+if "." in __name__:
     from .Python3Parser import Python3Parser
 else:
     from Python3Parser import Python3Parser
@@ -8,21 +8,21 @@ else:
 # This class defines a complete listener for a parse tree produced by Python3Parser.
 class Python3Listener(ParseTreeListener):
 
-    # Enter a parse tree produced by Python3Parser#single_input.
-    def enterSingle_input(self, ctx:Python3Parser.Single_inputContext):
-        pass
-
-    # Exit a parse tree produced by Python3Parser#single_input.
-    def exitSingle_input(self, ctx:Python3Parser.Single_inputContext):
-        pass
-
-
     # Enter a parse tree produced by Python3Parser#file_input.
     def enterFile_input(self, ctx:Python3Parser.File_inputContext):
         pass
 
     # Exit a parse tree produced by Python3Parser#file_input.
     def exitFile_input(self, ctx:Python3Parser.File_inputContext):
+        pass
+
+
+    # Enter a parse tree produced by Python3Parser#single_input.
+    def enterSingle_input(self, ctx:Python3Parser.Single_inputContext):
+        pass
+
+    # Exit a parse tree produced by Python3Parser#single_input.
+    def exitSingle_input(self, ctx:Python3Parser.Single_inputContext):
         pass
 
 
