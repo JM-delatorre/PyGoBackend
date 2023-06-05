@@ -395,6 +395,15 @@ class Python3Listener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by Python3Parser#ifrule.
+    def enterIfrule(self, ctx:Python3Parser.IfruleContext):
+        pass
+
+    # Exit a parse tree produced by Python3Parser#ifrule.
+    def exitIfrule(self, ctx:Python3Parser.IfruleContext):
+        pass
+
+
     # Enter a parse tree produced by Python3Parser#elif_ifstmt.
     def enterElif_ifstmt(self, ctx:Python3Parser.Elif_ifstmtContext):
         pass

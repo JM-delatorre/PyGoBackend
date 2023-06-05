@@ -218,7 +218,8 @@ assert_stmt: 'assert' test (',' test)?;
 
 compound_stmt: if_stmt | while_stmt | for_stmt | try_stmt | with_stmt | funcdef | classdef | decorated | async_stmt;
 async_stmt: ASYNC (funcdef | with_stmt | for_stmt);
-if_stmt: 'if' test ':' suite (elif_ifstmt)* (else_ifstmt)?;
+if_stmt: 'if' ifrule (elif_ifstmt)* (else_ifstmt)?;
+ifrule: test ':' suite;
 elif_ifstmt: 'elif' test ':' suite;
 else_ifstmt: 'else' ':' suite;
 while_stmt: 'while' test ':' suite (else_while)?;
