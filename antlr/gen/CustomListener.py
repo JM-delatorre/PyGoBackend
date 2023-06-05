@@ -9,6 +9,12 @@ from .Python3Listener import Python3Listener
 # This class defines a complete listener for a parse tree produced by Python3Parser.
 class CustomListener(Python3Listener):
 
+    # parameter that checks whether we are in the main of in a method
+    nameOfDef = "main"
+    # custom dictionnary, that has an "import" entry, a "main entry", and another entry for each method with its name as the key
+    customDictionnary = {"imports" : [""],
+                         "main" : [""]}
+
     # Enter a parse tree produced by Python3Parser#single_input.
     def enterSingle_input(self, ctx:Python3Parser.Single_inputContext):
         print("Hola hice una entrada")
@@ -624,7 +630,25 @@ class CustomListener(Python3Listener):
 
     # Enter a parse tree produced by Python3Parser#atom.
     def enterAtom(self, ctx:Python3Parser.AtomContext):
-        pass
+        if (ctx.NAME() != None):
+            if (ctx.getText() == "print"):
+                self.customDictionnary[self.nameOfDef].append("fmt.Print(")
+                #solutionner le pbm de la parenthèse sortante
+            self.customDictionnary[self.nameOfDef].append(ctx.getText())
+            print("entered, "+str(self.customDictionnary[self.nameOfDef]))
+        elif (ctx.NUMBER() != None):
+            self.customDictionnary[self.nameOfDef].append(ctx.NUMBER())
+        elif (ctx.STRING() != None):
+            self.customDictionnary[self.nameOfDef].append(ctx.STRING())
+        elif (ctx.getText() == "None"):
+            self.customDictionnary[self.nameOfDef].append("nil")
+        elif (ctx.getText() == "True"):
+            self.customDictionnary[self.nameOfDef].append("true")
+        elif (ctx.getText() == "False"):
+            self.customDictionnary[self.nameOfDef].append("false")
+        elif (ctx.getText() == "..."):
+            self.customDictionnary[self.nameOfDef].append("...")
+        
 
     # Exit a parse tree produced by Python3Parser#atom.
     def exitAtom(self, ctx:Python3Parser.AtomContext):
@@ -783,6 +807,20 @@ class CustomListener(Python3Listener):
     def exitYield_arg(self, ctx:Python3Parser.Yield_argContext):
         pass
 
+
+    # method that prints the dictionnary : first the imports, then the methods, then the main
+    def print_dictionnary(self):
+        print(self.customDictionnary)
+        for i in range (0, len(self.customDictionnary["imports"])) :
+            print("import "+self.customDictionnary["imports"][i])
+        
+        # add the printing of the functions
+
+        # print the main
+        print("func main(){\n")
+        for i in range (0, len(self.customDictionnary["main"])) :
+            print(self.customDictionnary["main"][i])
+        
 
 
 del Python3Parser
