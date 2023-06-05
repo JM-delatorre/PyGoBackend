@@ -919,10 +919,12 @@ class CustomListener(Python3Listener):
 
     # Enter a parse tree produced by Python3Parser#trailer.
     def enterTrailer(self, ctx:Python3Parser.TrailerContext):
+        self.customDictionnary[self.nameOfDef].append('(')
         pass
 
     # Exit a parse tree produced by Python3Parser#trailer.
     def exitTrailer(self, ctx:Python3Parser.TrailerContext):
+        self.customDictionnary[self.nameOfDef].append(')')
         pass
 
 
