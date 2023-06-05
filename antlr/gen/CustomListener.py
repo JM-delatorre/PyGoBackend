@@ -1096,11 +1096,11 @@ class CustomListener(Python3Listener):
         # print the main
         stringSol+="func main(){\n"
         for i in range (0, len(self.customDictionnary["main"])) :
-            if (i==0):
+            #if (i==0):
                 #self.customDictionnary["main"].append("\t")
-                stringSol+="\t"
+                #stringSol+="\t"
             if (self.customDictionnary["main"][i] == "\n"):
-                stringSol += self.customDictionnary["main"][i]+"\t"
+                stringSol += self.customDictionnary["main"][i]
             else :
                 stringSol += self.customDictionnary["main"][i]
         stringSol+="\n}"
