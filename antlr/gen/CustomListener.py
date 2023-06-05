@@ -125,6 +125,7 @@ class CustomListener(Python3Listener):
     def exitFuncdef(self, ctx:Python3Parser.FuncdefContext):
         self.customDictionnary[self.nameOfDef].append("}")
         self.nameOfDef = "main"
+        self.counterIndent -=1
         pass
 
 
