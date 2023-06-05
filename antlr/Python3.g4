@@ -1,4 +1,13 @@
 /*
+    This grammar is extracted from this repository https://github.com/antlr/grammars-v4/blob/master/python/python3-py/Python3.g4
+    and modified to our translator
+    Members: 
+    Juan Manuel De La Torre Sanchez
+    Alice Phung-Ngoc
+    Nicolas Romero Niño
+*/
+
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2014 by Bart Kiers
@@ -147,8 +156,8 @@ def atStartOfInput(self):
  * parser rules
  */
 
-single_input: NEWLINE | simple_stmt | compound_stmt NEWLINE;
 file_input: (NEWLINE | stmt)* EOF;
+single_input: NEWLINE | simple_stmt | compound_stmt NEWLINE;
 eval_input: testlist NEWLINE* EOF;
 
 decorator: '@' dotted_name ( '(' (arglist)? ')' )? NEWLINE;
@@ -178,8 +187,9 @@ simple_stmt: small_stmt (';' small_stmt)* (';')? NEWLINE;
 small_stmt: (expr_stmt | del_stmt | pass_stmt | flow_stmt |
              import_stmt | global_stmt | nonlocal_stmt | assert_stmt);
 expr_stmt: testlist_star_expr (annassign | augassign (yield_expr|testlist) |
-                     ('=' (yield_expr|testlist_star_expr))*);
-annassign: ':' test ('=' test)?;
+                     (assignrule (yield_expr|testlist_star_expr))*);
+annassign: ':' test (assignrule test)?;
+assignrule: ASSIGN;
 testlist_star_expr: (test|star_expr) (',' (test|star_expr))* (',')?;
 augassign: ('+=' | '-=' | '*=' | '@=' | '/=' | '%=' | '&=' | '|=' | '^=' |
             '<<=' | '>>=' | '**=' | '//=');
@@ -208,9 +218,14 @@ assert_stmt: 'assert' test (',' test)?;
 
 compound_stmt: if_stmt | while_stmt | for_stmt | try_stmt | with_stmt | funcdef | classdef | decorated | async_stmt;
 async_stmt: ASYNC (funcdef | with_stmt | for_stmt);
-if_stmt: 'if' test ':' suite ('elif' test ':' suite)* ('else' ':' suite)?;
-while_stmt: 'while' test ':' suite ('else' ':' suite)?;
-for_stmt: 'for' exprlist 'in' testlist ':' suite ('else' ':' suite)?;
+if_stmt: 'if' ifrule (elif_ifstmt)* (else_ifstmt)?;
+ifrule: test ':' suite;
+elif_ifstmt: 'elif' test ':' suite;
+else_ifstmt: 'else' ':' suite;
+while_stmt: 'while' test ':' suite (else_while)?;
+else_while: 'else' ':' suite;
+for_stmt: 'for' exprlist 'in' testlist ':' suite (else_for)?;
+else_for: 'else' ':' suite;
 try_stmt: ('try' ':' suite
            ((except_clause ':' suite)+
             ('else' ':' suite)?
@@ -226,21 +241,31 @@ test: or_test ('if' or_test 'else' test)? | lambdef;
 test_nocond: or_test | lambdef_nocond;
 lambdef: 'lambda' (varargslist)? ':' test;
 lambdef_nocond: 'lambda' (varargslist)? ':' test_nocond;
-or_test: and_test ('or' and_test)*;
-and_test: not_test ('and' not_test)*;
-not_test: 'not' not_test | comparison;
+or_test: and_test (orrule)*;
+orrule: 'or' and_test;
+and_test: not_test (andrule)*;
+andrule: 'and' not_test;
+not_test: notrule | comparison;
+notrule: 'not' not_test; 
 comparison: expr (comp_op expr)*;
 // <> isn't actually a valid comparison operator in Python. It's here for the
 // sake of a __future__ import described in PEP 401 (which really works :-)
 comp_op: '<'|'>'|'=='|'>='|'<='|'<>'|'!='|'in'|'not' 'in'|'is'|'is' 'not';
 star_expr: '*' expr;
-expr: xor_expr ('|' xor_expr)*;
-xor_expr: and_expr ('^' and_expr)*;
-and_expr: shift_expr ('&' shift_expr)*;
-shift_expr: arith_expr (('<<'|'>>') arith_expr)*;
-arith_expr: term (('+'|'-') term)*;
-term: factor (('*'|'@'|'/'|'%'|'//') factor)*;
-factor: ('+'|'-'|'~') factor | power;
+expr: xor_expr (orexprrule)*;
+orexprrule: '|' xor_expr;
+xor_expr: and_expr (xorexprrule)*;
+xorexprrule: '^' and_expr;
+and_expr: shift_expr (andexprrule)*;
+andexprrule: '&' shift_expr;
+shift_expr: arith_expr (shiftexprrule)*;
+shiftexprrule: ('<<'|'>>') arith_expr;
+arith_expr: term ((arithmeticrule1) term)*;
+term: factor ((arithmeticrule) factor)*;
+factor: (arithmeticrule2) factor | power;
+arithmeticrule: '*'|'@'|'/'|'%'|'//';
+arithmeticrule1: '+'|'-'; 
+arithmeticrule2: '+'|'-'|'~';
 power: atom_expr ('**' factor)?;
 atom_expr: (AWAIT)? atom trailer*;
 atom: ('(' (yield_expr|testlist_comp)? ')' |
