@@ -157,7 +157,19 @@ class CustomListener(Python3Listener):
 
     # Enter a parse tree produced by Python3Parser#stmt.
     def enterStmt(self, ctx:Python3Parser.StmtContext):
-        indentation = ""
+        pass
+
+    # Exit a parse tree produced by Python3Parser#stmt.
+    def exitStmt(self, ctx:Python3Parser.StmtContext):
+        pass
+
+
+    # Enter a parse tree produced by Python3Parser#simple_stmt.
+    def enterSimple_stmt(self, ctx:Python3Parser.Simple_stmtContext):
+        if (self.nameOfDef == "main"):
+            indentation = "\t"
+        else :
+            indentation = ""
         if (self.counterIndent == 0):
             pass
         for i in range (0, self.counterIndent):
@@ -165,21 +177,12 @@ class CustomListener(Python3Listener):
         self.customDictionnary[self.nameOfDef].append(indentation)
         pass
 
-    # Exit a parse tree produced by Python3Parser#stmt.
-    def exitStmt(self, ctx:Python3Parser.StmtContext):
+    # Exit a parse tree produced by Python3Parser#simple_stmt.
+    def exitSimple_stmt(self, ctx:Python3Parser.Simple_stmtContext):
         if (self.isPrint):
             self.customDictionnary[self.nameOfDef].append(")")
             self.isPrinte = False
         self.customDictionnary[self.nameOfDef].append("\n")
-        pass
-
-
-    # Enter a parse tree produced by Python3Parser#simple_stmt.
-    def enterSimple_stmt(self, ctx:Python3Parser.Simple_stmtContext):
-        pass
-
-    # Exit a parse tree produced by Python3Parser#simple_stmt.
-    def exitSimple_stmt(self, ctx:Python3Parser.Simple_stmtContext):
         pass
 
 
@@ -417,10 +420,23 @@ class CustomListener(Python3Listener):
 
     # Enter a parse tree produced by Python3Parser#compound_stmt.
     def enterCompound_stmt(self, ctx:Python3Parser.Compound_stmtContext):
+        if (self.nameOfDef == "main"):
+            indentation = "\t"
+        else :
+            indentation = ""
+        if (self.counterIndent == 0):
+            pass
+        for i in range (0, self.counterIndent):
+            indentation +="\t"
+        self.customDictionnary[self.nameOfDef].append(indentation)
         pass
 
     # Exit a parse tree produced by Python3Parser#compound_stmt.
     def exitCompound_stmt(self, ctx:Python3Parser.Compound_stmtContext):
+        if (self.isPrint):
+            self.customDictionnary[self.nameOfDef].append(")")
+            self.isPrinte = False
+        self.customDictionnary[self.nameOfDef].append("\n")
         pass
 
 
@@ -515,6 +531,9 @@ class CustomListener(Python3Listener):
 
     # Enter a parse tree produced by Python3Parser#suite.
     def enterSuite(self, ctx:Python3Parser.SuiteContext):
+        if (self.isLoop == "while"):
+            self.customDictionnary[self.nameOfDef].append("{\n")
+            self.isLoop == ""
         pass
 
     # Exit a parse tree produced by Python3Parser#suite.
@@ -528,8 +547,6 @@ class CustomListener(Python3Listener):
 
     # Exit a parse tree produced by Python3Parser#test.
     def exitTest(self, ctx:Python3Parser.TestContext):
-        if (self.isLoop == "while"):
-            self.customDictionnary[self.nameOfDef].append("{\n")
         pass
 
 
@@ -960,13 +977,16 @@ class CustomListener(Python3Listener):
         # add the printing of the functions
 
         # print the main
-        print("func main(){\n\t")
+        print("func main(){")
         for i in range (0, len(self.customDictionnary["main"])) :
+            if (i==0):
+                #self.customDictionnary["main"].append("\t")
+                print("\t")
             if (self.customDictionnary["main"][i] == "\n"):
                 print(self.customDictionnary["main"][i]+"\t", end="", flush=True)
             else :
                 print(self.customDictionnary["main"][i], end="", flush=True)
-        print("}")
+        print("\n}")
         
 
 
