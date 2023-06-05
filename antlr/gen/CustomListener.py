@@ -1087,7 +1087,9 @@ class CustomListener(Python3Listener):
                 if (self.customDictionnary["importsname"][i] == "\n"):
                     stringSol += "\n"
                 else :
+                    stringSol+="\t\""
                     stringSol += self.customDictionnary["importsname"][i]
+                    stringSol+="\""
                     if i!=len(self.customDictionnary["importsname"]):
                         stringSol+="\n"
             stringSol+=")\n"
