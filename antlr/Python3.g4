@@ -209,9 +209,13 @@ assert_stmt: 'assert' test (',' test)?;
 
 compound_stmt: if_stmt | while_stmt | for_stmt | try_stmt | with_stmt | funcdef | classdef | decorated | async_stmt;
 async_stmt: ASYNC (funcdef | with_stmt | for_stmt);
-if_stmt: 'if' test ':' suite ('elif' test ':' suite)* ('else' ':' suite)?;
-while_stmt: 'while' test ':' suite ('else' ':' suite)?;
-for_stmt: 'for' exprlist 'in' testlist ':' suite ('else' ':' suite)?;
+if_stmt: 'if' test ':' suite (elif_ifstmt)* (else_ifstmt)?;
+elif_ifstmt: 'elif' test ':' suite;
+else_ifstmt: 'else' ':' suite;
+while_stmt: 'while' test ':' suite (else_while)?;
+else_while: 'else' ':' suite;
+for_stmt: 'for' exprlist 'in' testlist ':' suite (else_for)?;
+else_for: 'else' ':' suite;
 try_stmt: ('try' ':' suite
            ((except_clause ':' suite)+
             ('else' ':' suite)?
@@ -239,9 +243,12 @@ expr: xor_expr ('|' xor_expr)*;
 xor_expr: and_expr ('^' and_expr)*;
 and_expr: shift_expr ('&' shift_expr)*;
 shift_expr: arith_expr (('<<'|'>>') arith_expr)*;
-arith_expr: term (('+'|'-') term)*;
-term: factor (('*'|'@'|'/'|'%'|'//') factor)*;
-factor: ('+'|'-'|'~') factor | power;
+arith_expr: term ((arithmeticrule1) term)*;
+term: factor ((arithmeticrule) factor)*;
+factor: (arithmeticrule2) factor | power;
+arithmeticrule: '*'|'@'|'/'|'%'|'//';
+arithmeticrule1: '+'|'-'; 
+arithmeticrule2: '+'|'-'|'~';
 power: atom_expr ('**' factor)?;
 atom_expr: (AWAIT)? atom trailer*;
 atom: ('(' (yield_expr|testlist_comp)? ')' |
