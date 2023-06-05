@@ -663,7 +663,7 @@ class CustomListener(Python3Listener):
 
     # Enter a parse tree produced by Python3Parser#orrule.
     def enterOrrule(self, ctx:Python3Parser.OrruleContext):
-        self.customDictionnary[self.nameOfDef].append(ctx.getText()[0:2])
+        self.customDictionnary[self.nameOfDef].append(" || ")
         pass
 
     # Exit a parse tree produced by Python3Parser#orrule.
@@ -679,11 +679,11 @@ class CustomListener(Python3Listener):
         pass
 
     def enterAndrule(self, ctx:Python3Parser.AndruleContext):
-        self.customDictionnary[self.nameOfDef].append(ctx.getText()[0:3])
+        self.customDictionnary[self.nameOfDef].append(" && ")
         pass
 
     def enterNotrule(self, ctx:Python3Parser.NotruleContext):
-        self.customDictionnary[self.nameOfDef].append(ctx.getText()[0:3])
+        self.customDictionnary[self.nameOfDef].append("!")
         pass
 
     # Enter a parse tree produced by Python3Parser#not_test.
@@ -1081,10 +1081,13 @@ class CustomListener(Python3Listener):
             stringSol += "import (\n"
             for i in range (0, len(self.customDictionnary["importsname"])) :
                 if (self.customDictionnary["importsname"][i] == "\n"):
-                    stringSol += "\nimport "
+                    stringSol += "\n"
                 else :
                     stringSol += self.customDictionnary["importsname"][i]
+                    if i!=len(self.customDictionnary["importsname"]):
+                        stringSol+="\n"
             stringSol+=")\n"
+        
         
         # imports with froms : not for now
         stringSol+="\n"
