@@ -491,6 +491,7 @@ class CustomListener(Python3Listener):
             string += '\t'
         if (self.nameOfDef=="main"):
             string+="\t"
+        self.customDictionnary[self.nameOfDef].append(string)
         self.customDictionnary[self.nameOfDef].append('}\n')
         pass
 
