@@ -732,7 +732,7 @@ class CustomListener(Python3Listener):
         elif (ctx.getText() == "<="):
             self.customDictionnary[self.nameOfDef].append(ctx.getText())
         elif (ctx.getText() == "<>"):
-            self.customDictionnary[self.nameOfDef].append(ctx.getText())
+            self.customDictionnary[self.nameOfDef].append("!=")
         elif (ctx.getText() == "!="):
             self.customDictionnary[self.nameOfDef].append(ctx.getText())
         pass
