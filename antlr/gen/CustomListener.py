@@ -503,8 +503,9 @@ class CustomListener(Python3Listener):
     # Exit a parse tree produced by Python3Parser#elif_ifstmt.
     def exitElif_ifstmt(self, ctx:Python3Parser.Elif_ifstmtContext):
         self.counterIndent -= 1
+        string = ""
         for i in range(0, self.counterIndent):
-            string += '\t'
+            string += "\t"
         if (self.nameOfDef=="main"):
             string+="\t"
         self.customDictionnary[self.nameOfDef].append(string)
@@ -518,7 +519,7 @@ class CustomListener(Python3Listener):
         if (self.nameOfDef=="main"):
             string+="\t"
         for i in range(0, self.counterIndent):
-            string += '\t'
+            string += "\t"
         self.customDictionnary[self.nameOfDef].append(string)
         self.customDictionnary[self.nameOfDef].append('else {\n')
         self.counterIndent += 1
@@ -527,6 +528,7 @@ class CustomListener(Python3Listener):
     # Exit a parse tree produced by Python3Parser#else_ifstmt.
     def exitElse_ifstmt(self, ctx:Python3Parser.Else_ifstmtContext):
         self.counterIndent -= 1
+        string=""
         for i in range(0, self.counterIndent):
             string += '\t'
         if (self.nameOfDef=="main"):
