@@ -19,8 +19,8 @@ def trans():
     if request.method == 'POST':
         alldata = request.get_json()
         try:
-            translator(alldata['data'])
-            return({'data': 'Peticion hecha'})
+            myres = translator(alldata['data'])
+            return({'data': myres})
         except:
             return Response('Server Error', status=500)
         

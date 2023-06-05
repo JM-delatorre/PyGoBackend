@@ -5,9 +5,10 @@ from .gen.CustomListener import CustomListener
 import os
 
 
-def translator():   
-    filePath = os.path.abspath("antlr/prueba.txt")
-    input_stream = FileStream(filePath)
+def translator(textInput):   
+    # filePath = os.path.abspath("antlr/prueba.txt")
+    # input_stream = FileStream(filePath)
+    input_stream = InputStream(textInput)
     lexer = Python3Lexer(input_stream)
     stream = CommonTokenStream(lexer)
     parser = Python3Parser(stream)
@@ -15,7 +16,8 @@ def translator():
     printer = CustomListener()
     walker = ParseTreeWalker()
     walker.walk(printer, tree)
-    print(printer.print_dictionnary())
+    # print(printer.print_dictionnary())
+    return printer.print_dictionnary() 
 
     
 

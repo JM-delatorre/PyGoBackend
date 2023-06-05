@@ -1068,7 +1068,7 @@ class CustomListener(Python3Listener):
 
     # method that prints the dictionnary : first the imports, then the methods, then the main
     def print_dictionnary(self):
-        stringSol = ""
+        stringSol = "package main \n"
         print(self.customDictionnary)
 
         # simple imports
