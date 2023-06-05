@@ -20,6 +20,10 @@ class CustomListener(Python3Listener):
     
     # parameter to check whether we're in a print, if yes, it prints another parenthesis at the end of the statement
     isPrint = False
+    # parameter to, if we're in a loop, check the type of loop : allows to add stg after the tests
+    # equal to "" when there's nothing, while when while, for when for, ...
+    isLoop = ""
+    forArg = ""
 
     # parameter to indent
     counterIndent = 0
@@ -32,6 +36,9 @@ class CustomListener(Python3Listener):
                          "main" : []}
         self.isPrint == False
         self.counterIndent = 0
+
+        self.isLoop = ""
+        self.forArg = ""
 
 
 
@@ -154,7 +161,19 @@ class CustomListener(Python3Listener):
 
     # Enter a parse tree produced by Python3Parser#stmt.
     def enterStmt(self, ctx:Python3Parser.StmtContext):
-        indentation = ""
+        pass
+
+    # Exit a parse tree produced by Python3Parser#stmt.
+    def exitStmt(self, ctx:Python3Parser.StmtContext):
+        pass
+
+
+    # Enter a parse tree produced by Python3Parser#simple_stmt.
+    def enterSimple_stmt(self, ctx:Python3Parser.Simple_stmtContext):
+        if (self.nameOfDef == "main"):
+            indentation = "\t"
+        else :
+            indentation = ""
         if (self.counterIndent == 0):
             pass
         for i in range (0, self.counterIndent):
@@ -162,21 +181,12 @@ class CustomListener(Python3Listener):
         self.customDictionnary[self.nameOfDef].append(indentation)
         pass
 
-    # Exit a parse tree produced by Python3Parser#stmt.
-    def exitStmt(self, ctx:Python3Parser.StmtContext):
+    # Exit a parse tree produced by Python3Parser#simple_stmt.
+    def exitSimple_stmt(self, ctx:Python3Parser.Simple_stmtContext):
         if (self.isPrint):
             self.customDictionnary[self.nameOfDef].append(")")
             self.isPrinte = False
         self.customDictionnary[self.nameOfDef].append("\n")
-        pass
-
-
-    # Enter a parse tree produced by Python3Parser#simple_stmt.
-    def enterSimple_stmt(self, ctx:Python3Parser.Simple_stmtContext):
-        pass
-
-    # Exit a parse tree produced by Python3Parser#simple_stmt.
-    def exitSimple_stmt(self, ctx:Python3Parser.Simple_stmtContext):
         pass
 
 
@@ -414,10 +424,23 @@ class CustomListener(Python3Listener):
 
     # Enter a parse tree produced by Python3Parser#compound_stmt.
     def enterCompound_stmt(self, ctx:Python3Parser.Compound_stmtContext):
+        if (self.nameOfDef == "main"):
+            indentation = "\t"
+        else :
+            indentation = ""
+        if (self.counterIndent == 0):
+            pass
+        for i in range (0, self.counterIndent):
+            indentation +="\t"
+        self.customDictionnary[self.nameOfDef].append(indentation)
         pass
 
     # Exit a parse tree produced by Python3Parser#compound_stmt.
     def exitCompound_stmt(self, ctx:Python3Parser.Compound_stmtContext):
+        if (self.isPrint):
+            self.customDictionnary[self.nameOfDef].append(")")
+            self.isPrinte = False
+        self.customDictionnary[self.nameOfDef].append("\n")
         pass
 
 
@@ -458,17 +481,31 @@ class CustomListener(Python3Listener):
     # Enter a parse tree produced by Python3Parser#while_stmt.
     def enterWhile_stmt(self, ctx:Python3Parser.While_stmtContext):
         self.counterIndent+=1
+        self.isLoop = "while"
+        self.customDictionnary[self.nameOfDef].append("for ")
         pass
 
     # Exit a parse tree produced by Python3Parser#while_stmt.
     def exitWhile_stmt(self, ctx:Python3Parser.While_stmtContext):
         self.counterIndent-=1
+        self.customDictionnary[self.nameOfDef].append("}")
+        self.isLoop = ""
+        pass
+
+        # Enter a parse tree produced by Python3Parser#else_while.
+    def enterElse_while(self, ctx:Python3Parser.Else_whileContext):
+        pass
+
+    # Exit a parse tree produced by Python3Parser#else_while.
+    def exitElse_while(self, ctx:Python3Parser.Else_whileContext):
         pass
 
 
     # Enter a parse tree produced by Python3Parser#for_stmt.
     def enterFor_stmt(self, ctx:Python3Parser.For_stmtContext):
         self.counterIndent +=1
+        self.isLoop = "for"
+        self.customDictionnary[self.nameOfDef].append("for ")
         pass
 
     # Exit a parse tree produced by Python3Parser#for_stmt.
@@ -515,6 +552,9 @@ class CustomListener(Python3Listener):
 
     # Enter a parse tree produced by Python3Parser#suite.
     def enterSuite(self, ctx:Python3Parser.SuiteContext):
+        if (self.isLoop == "while"):
+            self.customDictionnary[self.nameOfDef].append("{\n")
+            self.isLoop == ""
         pass
 
     # Exit a parse tree produced by Python3Parser#suite.
@@ -746,7 +786,6 @@ class CustomListener(Python3Listener):
     # Enter a parse tree produced by Python3Parser#atom.
     def enterAtom(self, ctx:Python3Parser.AtomContext):
         if (ctx.NAME() != None):
-            print('Name ' + ctx.getText())
             if (ctx.getText() == "print"):
                 print("print "+ctx.getText())
                 self.isPrint = True
@@ -756,6 +795,8 @@ class CustomListener(Python3Listener):
                 #solutionner le pbm de la parenthèse sortante
             else :
                 self.customDictionnary[self.nameOfDef].append(ctx.getText())
+                if self.isLoop == "for" and self.forArg == "" :
+                    self.forArg = ctx.getText()
                 print("name "+ctx.getText())
         elif (ctx.NUMBER() != None):
             print("num "+ctx.getText())
@@ -832,6 +873,10 @@ class CustomListener(Python3Listener):
 
     # Exit a parse tree produced by Python3Parser#exprlist.
     def exitExprlist(self, ctx:Python3Parser.ExprlistContext):
+        if (self.isLoop == "for"):
+            self.customDictionnary[self.nameOfDef].append("; ")
+            # recap cause the grammar is just weird at this point, there's no range
+            self.customDictionnary[self.nameOfDef].append(self.forArg+"< len(")
         pass
 
 
@@ -841,6 +886,8 @@ class CustomListener(Python3Listener):
 
     # Exit a parse tree produced by Python3Parser#testlist.
     def exitTestlist(self, ctx:Python3Parser.TestlistContext):
+        if (self.isLoop == "for"):
+            self.customDictionnary[self.nameOfDef].append("); "+self.forArg+"++ {\n")
         pass
 
 
@@ -960,8 +1007,14 @@ class CustomListener(Python3Listener):
         # print the main
         print("func main(){")
         for i in range (0, len(self.customDictionnary["main"])) :
-            print(self.customDictionnary["main"][i], end="", flush=True)
-        print("}")
+            if (i==0):
+                #self.customDictionnary["main"].append("\t")
+                print("\t")
+            if (self.customDictionnary["main"][i] == "\n"):
+                print(self.customDictionnary["main"][i]+"\t", end="", flush=True)
+            else :
+                print(self.customDictionnary["main"][i], end="", flush=True)
+        print("\n}")
         
 
 

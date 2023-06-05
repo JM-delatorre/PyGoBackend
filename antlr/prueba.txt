@@ -1,1 +1,2 @@
-x=9*8
+for i in myList :
+    x = w + 2
