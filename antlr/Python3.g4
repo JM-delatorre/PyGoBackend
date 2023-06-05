@@ -1,4 +1,13 @@
 /*
+    This grammar is extracted from this repository https://github.com/antlr/grammars-v4/blob/master/python/python3-py/Python3.g4
+    and modified to our translator
+    Members: 
+    Juan Manuel De La Torre Sanchez
+    Alice Phung-Ngoc
+    Nicolas Romero Niño
+*/
+
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2014 by Bart Kiers
@@ -231,18 +240,25 @@ test: or_test ('if' or_test 'else' test)? | lambdef;
 test_nocond: or_test | lambdef_nocond;
 lambdef: 'lambda' (varargslist)? ':' test;
 lambdef_nocond: 'lambda' (varargslist)? ':' test_nocond;
-or_test: and_test ('or' and_test)*;
-and_test: not_test ('and' not_test)*;
-not_test: 'not' not_test | comparison;
+or_test: and_test (orrule)*;
+orrule: 'or' and_test;
+and_test: not_test (andrule)*;
+andrule: 'and' not_test;
+not_test: notrule | comparison;
+notrule: 'not' not_test; 
 comparison: expr (comp_op expr)*;
 // <> isn't actually a valid comparison operator in Python. It's here for the
 // sake of a __future__ import described in PEP 401 (which really works :-)
 comp_op: '<'|'>'|'=='|'>='|'<='|'<>'|'!='|'in'|'not' 'in'|'is'|'is' 'not';
 star_expr: '*' expr;
-expr: xor_expr ('|' xor_expr)*;
-xor_expr: and_expr ('^' and_expr)*;
-and_expr: shift_expr ('&' shift_expr)*;
-shift_expr: arith_expr (('<<'|'>>') arith_expr)*;
+expr: xor_expr (orexprrule)*;
+orexprrule: '|' xor_expr;
+xor_expr: and_expr (xorexprrule)*;
+xorexprrule: '^' and_expr;
+and_expr: shift_expr (andexprrule)*;
+andexprrule: '&' shift_expr;
+shift_expr: arith_expr (shiftexprrule)*;
+shiftexprrule: ('<<'|'>>') arith_expr;
 arith_expr: term ((arithmeticrule1) term)*;
 term: factor ((arithmeticrule) factor)*;
 factor: (arithmeticrule2) factor | power;

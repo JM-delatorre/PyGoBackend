@@ -476,6 +476,21 @@ class CustomListener(Python3Listener):
     def exitIf_stmt(self, ctx:Python3Parser.If_stmtContext):
         pass
 
+    def enterElif_ifstmt(self, ctx:Python3Parser.Elif_ifstmtContext):
+            pass
+
+    # Exit a parse tree produced by Python3Parser#elif_ifstmt.
+    def exitElif_ifstmt(self, ctx:Python3Parser.Elif_ifstmtContext):
+        pass
+
+    # Enter a parse tree produced by Python3Parser#else_ifstmt.
+    def enterElse_ifstmt(self, ctx:Python3Parser.Else_ifstmtContext):
+        pass
+
+    # Exit a parse tree produced by Python3Parser#else_ifstmt.
+    def exitElse_ifstmt(self, ctx:Python3Parser.Else_ifstmtContext):
+        pass
+
 
     # Enter a parse tree produced by Python3Parser#while_stmt.
     def enterWhile_stmt(self, ctx:Python3Parser.While_stmtContext):
