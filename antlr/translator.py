@@ -7,7 +7,6 @@ import os
 
 def translator():
     filePath = os.path.abspath("antlr/prueba.txt")
-    # os.path.abspath("src/examplefile.txt")    
     input_stream = FileStream(filePath)
     lexer = Python3Lexer(input_stream)
     stream = CommonTokenStream(lexer)
