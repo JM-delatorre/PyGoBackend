@@ -484,8 +484,13 @@ class CustomListener(Python3Listener):
 
     # Exit a parse tree produced by Python3Parser#ifrule.
     def exitIfrule(self, ctx:Python3Parser.IfruleContext):
-        self.customDictionnary[self.nameOfDef].append('}\n')
+        string = ''
         self.counterIndent -= 1
+        for i in range(0, self.counterIndent):
+            string += '\t'
+        if (self.nameOfDef=="main"):
+            string+="\t"
+        self.customDictionnary[self.nameOfDef].append('}\n')
         pass
 
     def enterElif_ifstmt(self, ctx:Python3Parser.Elif_ifstmtContext):
