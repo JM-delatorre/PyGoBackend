@@ -268,12 +268,12 @@ arithmeticrule1: '+'|'-';
 arithmeticrule2: '+'|'-'|'~';
 power: atom_expr ('**' factor)?;
 atom_expr: (AWAIT)? atom trailer*;
-atom: ('(' (yield_expr|testlist_comp)? ')' |
-       '[' (testlist_comp)? ']' |
-       '{' (dictorsetmaker)? '}' |
+atom: (OPEN_PAREN (yield_expr|testlist_comp)? CLOSE_PAREN |
+       OPEN_BRACK (testlist_comp)? CLOSE_BRACK |
+       OPEN_BRACE (dictorsetmaker)? OPEN_BRACE |
        NAME | NUMBER | STRING+ | '...' | NONE | TRUE | FALSE);
 testlist_comp: (test|star_expr) ( comp_for | (',' (test|star_expr))* (',')? );
-trailer: '(' (arglist)? ')' | '[' subscriptlist ']' | '.' NAME;
+trailer: OPEN_PAREN (arglist)? CLOSE_PAREN | OPEN_BRACK subscriptlist CLOSE_BRACK | '.' NAME;
 subscriptlist: subscript (',' subscript)* (',')?;
 subscript: test | (test)? ':' (test)? (sliceop)?;
 sliceop: ':' (test)?;
