@@ -11,7 +11,7 @@ def translator():
     lexer = Python3Lexer(input_stream)
     stream = CommonTokenStream(lexer)
     parser = Python3Parser(stream)
-    tree = parser.single_input()
+    tree = parser.file_input()
     printer = CustomListener()
     walker = ParseTreeWalker()
     walker.walk(printer, tree)
