@@ -20,6 +20,9 @@ class CustomListener(Python3Listener):
     
     # parameter to check whether we're in a print, if yes, it prints another parenthesis at the end of the statement
     isPrint = False
+    # parameter to, if we're in a loop, check the type of loop : allows to add stg after the tests
+    # equal to "" when there's nothing, while when while, for when for, ...
+    isLoop = ""
 
     # parameter to indent
     counterIndent = 0
@@ -443,11 +446,23 @@ class CustomListener(Python3Listener):
     # Enter a parse tree produced by Python3Parser#while_stmt.
     def enterWhile_stmt(self, ctx:Python3Parser.While_stmtContext):
         self.counterIndent+=1
+        self.isLoop = "while"
+        self.customDictionnary[self.nameOfDef].append("for ")
         pass
 
     # Exit a parse tree produced by Python3Parser#while_stmt.
     def exitWhile_stmt(self, ctx:Python3Parser.While_stmtContext):
         self.counterIndent-=1
+        self.customDictionnary[self.nameOfDef].append("}")
+        self.isLoop = ""
+        pass
+
+        # Enter a parse tree produced by Python3Parser#else_while.
+    def enterElse_while(self, ctx:Python3Parser.Else_whileContext):
+        pass
+
+    # Exit a parse tree produced by Python3Parser#else_while.
+    def exitElse_while(self, ctx:Python3Parser.Else_whileContext):
         pass
 
 
@@ -513,6 +528,8 @@ class CustomListener(Python3Listener):
 
     # Exit a parse tree produced by Python3Parser#test.
     def exitTest(self, ctx:Python3Parser.TestContext):
+        if (self.isLoop == "while"):
+            self.customDictionnary[self.nameOfDef].append("{\n")
         pass
 
 
@@ -913,9 +930,12 @@ class CustomListener(Python3Listener):
         # add the printing of the functions
 
         # print the main
-        print("func main(){")
+        print("func main(){\n\t")
         for i in range (0, len(self.customDictionnary["main"])) :
-            print(self.customDictionnary["main"][i], end="", flush=True)
+            if (self.customDictionnary["main"][i] == "\n"):
+                print(self.customDictionnary["main"][i]+"\t", end="", flush=True)
+            else :
+                print(self.customDictionnary["main"][i], end="", flush=True)
         print("}")
         
 
