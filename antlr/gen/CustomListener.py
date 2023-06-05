@@ -202,9 +202,6 @@ class CustomListener(Python3Listener):
 
     # Exit a parse tree produced by Python3Parser#simple_stmt.
     def exitSimple_stmt(self, ctx:Python3Parser.Simple_stmtContext):
-        if (self.isPrint):
-            self.customDictionnary[self.nameOfDef].append(")")
-            self.isPrint = False
         self.customDictionnary[self.nameOfDef].append("\n")
         pass
 
@@ -872,7 +869,6 @@ class CustomListener(Python3Listener):
     # Enter a parse tree produced by Python3Parser#atom.
     def enterAtom(self, ctx:Python3Parser.AtomContext):
         if (ctx.TRUE() != None):
-            print("yes")
             self.customDictionnary[self.nameOfDef].append(" true")
         elif (ctx.NONE() != None):
             self.customDictionnary[self.nameOfDef].append(" nil")
@@ -884,7 +880,7 @@ class CustomListener(Python3Listener):
                 self.isPrint = True
                 if ("fmt" not in self.customDictionnary["importsname"]):
                     self.customDictionnary["importsname"].append("fmt")
-                self.customDictionnary[self.nameOfDef].append("fmt.Print(")
+                self.customDictionnary[self.nameOfDef].append("fmt.Print")
                 #solutionner le pbm de la parenthèse sortante
             else :
                 self.customDictionnary[self.nameOfDef].append(ctx.getText())
