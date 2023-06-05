@@ -1,6 +1,7 @@
 from flask import Flask, Response, render_template, request
 from flask_cors import CORS
 from antlr.translator import translator
+from antlr.translator import translatorTesting
 
 app = Flask(__name__)
 CORS(app)
@@ -11,8 +12,8 @@ def index():
 
 @app.route('/test')
 def test():
-    translator()
-    return 'Hola pene'
+    translatorTesting()
+    return 'Hola testing'
 
 @app.route('/translate', methods =['POST'])
 def trans():
