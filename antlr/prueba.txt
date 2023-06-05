@@ -1,0 +1,3 @@
+print("hola mundo")
+if x == True:
+    print('xd')
