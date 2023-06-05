@@ -493,6 +493,8 @@ class CustomListener(Python3Listener):
         string = ''
         for i in range(0, self.counterIndent):
             string += '\t'
+        if (self.nameOfDef=="main"):
+            string+="\t"
         self.customDictionnary[self.nameOfDef].append(string)
         self.customDictionnary[self.nameOfDef].append('else if (')
         self.counterIndent += 1
@@ -500,24 +502,37 @@ class CustomListener(Python3Listener):
 
     # Exit a parse tree produced by Python3Parser#elif_ifstmt.
     def exitElif_ifstmt(self, ctx:Python3Parser.Elif_ifstmtContext):
-        self.customDictionnary[self.nameOfDef].append('}\n')
         self.counterIndent -= 1
+        for i in range(0, self.counterIndent):
+            string += '\t'
+        if (self.nameOfDef=="main"):
+            string+="\t"
+        self.customDictionnary[self.nameOfDef].append(string)
+        self.customDictionnary[self.nameOfDef].append('}\n')
+        
         pass
 
     # Enter a parse tree produced by Python3Parser#else_ifstmt.
     def enterElse_ifstmt(self, ctx:Python3Parser.Else_ifstmtContext):
         string = ''
+        if (self.nameOfDef=="main"):
+            string+="\t"
         for i in range(0, self.counterIndent):
             string += '\t'
         self.customDictionnary[self.nameOfDef].append(string)
-        self.customDictionnary[self.nameOfDef].append('else {')
+        self.customDictionnary[self.nameOfDef].append('else {\n')
         self.counterIndent += 1
         pass
 
     # Exit a parse tree produced by Python3Parser#else_ifstmt.
     def exitElse_ifstmt(self, ctx:Python3Parser.Else_ifstmtContext):
-        self.customDictionnary[self.nameOfDef].append('}\n')
         self.counterIndent -= 1
+        for i in range(0, self.counterIndent):
+            string += '\t'
+        if (self.nameOfDef=="main"):
+            string+="\t"
+        self.customDictionnary[self.nameOfDef].append(string)
+        self.customDictionnary[self.nameOfDef].append('}\n')
         pass
 
 
