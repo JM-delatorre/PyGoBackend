@@ -25,6 +25,7 @@ class CustomListener(Python3Listener):
     isLoop = ""
     forArg = ""
 
+
     # parameter to indent
     counterIndent = 0
 
@@ -237,6 +238,7 @@ class CustomListener(Python3Listener):
 
     # Exit a parse tree produced by Python3Parser#testlist_star_expr.
     def exitTestlist_star_expr(self, ctx:Python3Parser.Testlist_star_exprContext):
+
         pass
 
 
@@ -469,26 +471,33 @@ class CustomListener(Python3Listener):
 
     # Enter a parse tree produced by Python3Parser#if_stmt.
     def enterIf_stmt(self, ctx:Python3Parser.If_stmtContext):
-        self.customDictionnary[self.nameOfDef].append('if')
+        self.isLoop = 'if'
+        self.customDictionnary[self.nameOfDef].append('if (')
         pass
 
     # Exit a parse tree produced by Python3Parser#if_stmt.
     def exitIf_stmt(self, ctx:Python3Parser.If_stmtContext):
+        self.customDictionnary[self.nameOfDef].append('}\n')
         pass
 
     def enterElif_ifstmt(self, ctx:Python3Parser.Elif_ifstmtContext):
-            pass
+        self.isLoop = 'else_if'
+        self.customDictionnary[self.nameOfDef].append('else if (')
+        pass
 
     # Exit a parse tree produced by Python3Parser#elif_ifstmt.
     def exitElif_ifstmt(self, ctx:Python3Parser.Elif_ifstmtContext):
+        self.customDictionnary[self.nameOfDef].append('}\n')
         pass
 
     # Enter a parse tree produced by Python3Parser#else_ifstmt.
     def enterElse_ifstmt(self, ctx:Python3Parser.Else_ifstmtContext):
+        self.customDictionnary[self.nameOfDef].append('else {')
         pass
 
     # Exit a parse tree produced by Python3Parser#else_ifstmt.
     def exitElse_ifstmt(self, ctx:Python3Parser.Else_ifstmtContext):
+        self.customDictionnary[self.nameOfDef].append('}\n')
         pass
 
 
@@ -582,6 +591,9 @@ class CustomListener(Python3Listener):
 
     # Exit a parse tree produced by Python3Parser#test.
     def exitTest(self, ctx:Python3Parser.TestContext):
+        if(self.isLoop == 'if' or self.isLoop == 'else_if'):
+            self.customDictionnary[self.nameOfDef].append(") {\n")
+            self.isLoop = ''
         pass
 
 
@@ -620,6 +632,14 @@ class CustomListener(Python3Listener):
     def exitOr_test(self, ctx:Python3Parser.Or_testContext):
         pass
 
+    # Enter a parse tree produced by Python3Parser#orrule.
+    def enterOrrule(self, ctx:Python3Parser.OrruleContext):
+        self.customDictionnary[self.nameOfDef].append(ctx.getText()[0:2])
+        pass
+
+    # Exit a parse tree produced by Python3Parser#orrule.
+    def exitOrrule(self, ctx:Python3Parser.OrruleContext):
+        pass
 
     # Enter a parse tree produced by Python3Parser#and_test.
     def enterAnd_test(self, ctx:Python3Parser.And_testContext):
@@ -629,6 +649,13 @@ class CustomListener(Python3Listener):
     def exitAnd_test(self, ctx:Python3Parser.And_testContext):
         pass
 
+    def enterAndrule(self, ctx:Python3Parser.AndruleContext):
+        self.customDictionnary[self.nameOfDef].append(ctx.getText()[0:3])
+        pass
+
+    def enterNotrule(self, ctx:Python3Parser.NotruleContext):
+        self.customDictionnary[self.nameOfDef].append(ctx.getText()[0:3])
+        pass
 
     # Enter a parse tree produced by Python3Parser#not_test.
     def enterNot_test(self, ctx:Python3Parser.Not_testContext):
@@ -673,6 +700,7 @@ class CustomListener(Python3Listener):
 
     # Enter a parse tree produced by Python3Parser#star_expr.
     def enterStar_expr(self, ctx:Python3Parser.Star_exprContext):
+        self.customDictionnary[self.nameOfDef].append(ctx.getText()[0])
         pass
 
     # Exit a parse tree produced by Python3Parser#star_expr.
@@ -697,6 +725,21 @@ class CustomListener(Python3Listener):
     def exitXor_expr(self, ctx:Python3Parser.Xor_exprContext):
         pass
 
+    def enterXorexprrule(self, ctx:Python3Parser.XorexprruleContext):
+        self.customDictionnary[self.nameOfDef].append(ctx.getText()[0])
+        pass
+
+    def enterOrexprrule(self, ctx:Python3Parser.OrexprruleContext):
+        self.customDictionnary[self.nameOfDef].append(ctx.getText()[0])
+        pass
+
+    def enterAndexprrule(self, ctx:Python3Parser.AndexprruleContext):
+        self.customDictionnary[self.nameOfDef].append(ctx.getText()[0])
+        pass
+
+    def enterShiftexprrule(self, ctx:Python3Parser.ShiftexprruleContext):
+        self.customDictionnary[self.nameOfDef].append(ctx.getText()[0:2])
+        pass
 
     # Enter a parse tree produced by Python3Parser#and_expr.
     def enterAnd_expr(self, ctx:Python3Parser.And_exprContext):
