@@ -871,6 +871,12 @@ class CustomListener(Python3Listener):
 
     # Enter a parse tree produced by Python3Parser#atom.
     def enterAtom(self, ctx:Python3Parser.AtomContext):
+        if (ctx.getText() == 'True'):
+            self.customDictionnary[self.nameOfDef].append("true")
+        elif (ctx.getText() == "None"):
+            self.customDictionnary[self.nameOfDef].append("nil")
+        elif (ctx.getText() == "False"):
+            self.customDictionnary[self.nameOfDef].append("false")
         if (ctx.NAME() != None):
             if (ctx.getText() == "print"):
                 print("print "+ctx.getText())
@@ -893,12 +899,7 @@ class CustomListener(Python3Listener):
             else :
                 print("string "+ctx.getText())
                 self.customDictionnary[self.nameOfDef].append(ctx.getText())
-        elif (ctx.getText().__eq__("None")):
-            self.customDictionnary[self.nameOfDef].append("nil")
-        elif (ctx.getText().__eq__("True")):
-            self.customDictionnary[self.nameOfDef].append("true")
-        elif (ctx.getText().__eq__("False")):
-            self.customDictionnary[self.nameOfDef].append("false")
+        
         #elif (ctx.getText() == "..."):
         #    self.customDictionnary[self.nameOfDef].append("...")
         
