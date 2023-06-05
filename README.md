@@ -1,6 +1,17 @@
-# flask
-A minimal Flask web application.
+# PygoBackend
+A minimal rest API using flask in python for the backend of the PyGo Project 
 
-For a step-by-step guide to deploying on [Railway](https://railway.app/?referralCode=alphasec), see [this](https://alphasec.io/how-to-deploy-a-python-flask-app-on-railway/) post, or click the button below.
+You can check the frontend of the project [here](https://github.com/JM-delatorre/PyGO)
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template/igzwwg?referralCode=alphasec)
+## Development
+
+For developemnt first you need to create the virtual enviroment
+
+In a directory other than the main directory use this command `py -m venv <NAME YOUR WANT FOR THE VENV>` 
+
+Then go to the root folder of the project and use this command  to install dependencies `pip install -r requirements.txt`
+
+Finally you can run the app with this commands 
+for running normally `flask --app main run`
+for debugging `flask --app main run --debug`
+

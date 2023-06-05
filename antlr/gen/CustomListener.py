@@ -1,3 +1,4 @@
+
 # Generated from .\Python3.g4 by ANTLR 4.12.0
 from antlr4 import *
 if __name__ is not None and "." in __name__:
@@ -1080,9 +1081,9 @@ class CustomListener(Python3Listener):
             stringSol += "import (\n"
             for i in range (0, len(self.customDictionnary["importsname"])) :
                 if (self.customDictionnary["importsname"][i] == "\n"):
-                    stringSol += "\n"
+                    stringSol += "\nimport "
                 else :
-                    stringSol += self.customDictionnary["importsname"][i] + "\n"
+                    stringSol += self.customDictionnary["importsname"][i]
             stringSol+=")\n"
         
         # imports with froms : not for now
@@ -1109,6 +1110,5 @@ class CustomListener(Python3Listener):
 
         return stringSol
         
-
 
 del Python3Parser
